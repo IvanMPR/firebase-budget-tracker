@@ -26,52 +26,44 @@ function Login() {
   }
 
   return (
-    <div className=' p-2 border-solid border-2 border-blue flex flex-col text-center w-96 m-auto mt-5 rounded-md'>
-      {/* <h2 className=' text-2xl p-4 '> Account Login</h2> */}
+    <form className='flex items-center'>
+      <div>
+        <label
+          htmlFor='email-address'
+          className='mx-1 my-0 text-left italic'
+        ></label>
+        <input
+          id='email-address'
+          name='email'
+          type='email'
+          required
+          placeholder='Email'
+          onChange={e => setEmail(e.target.value)}
+          className='w-28 rounded-full bg-yellow-100 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:w-64 sm:focus:w-72'
+        />
+      </div>
 
-      <form className='flex'>
-        <div className=' flex flex-col justify-center mb-2'>
-          <label
-            htmlFor='email-address'
-            className='  mx-1 my-0 text-left italic'
-          >
-            Email
-          </label>
-          <input
-            id='email-address'
-            name='email'
-            type='email'
-            required
-            placeholder='Email address'
-            onChange={e => setEmail(e.target.value)}
-            className=' m-1 p-1 border-solid border-2 border-indigo-600 rounded'
-          />
-        </div>
-
-        <div className=' flex flex-col justify-center text-left '>
-          <label htmlFor='password' className='mx-1 my-0 italic'>
-            Password
-          </label>
-          <input
-            id='password'
-            name='password'
-            type='password'
-            required
-            placeholder='Password'
-            onChange={e => setPassword(e.target.value)}
-            className=' m-1 p-1 border-solid border-2 border-indigo-600 rounded'
-          />
-        </div>
-        <div className='mt-5 px-1'>
-          <button
-            className=' text-center p-1  text-xl hover:text-white bg-blue hover:bg-blue-dark rounded size-full transition'
-            onClick={onLogin}
-          >
-            Login
-          </button>
-        </div>
-      </form>
-    </div>
+      <div>
+        <label htmlFor='password' className='mx-1 my-0 italic'></label>
+        <input
+          id='password'
+          name='password'
+          type='password'
+          required
+          placeholder='Password'
+          onChange={e => setPassword(e.target.value)}
+          className='w-16 rounded-full bg-yellow-100 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:w-48 sm:focus:w-56'
+        />
+      </div>
+      <div>
+        <button
+          className='text-center p-1 text-xl hover:text-white bg-blue hover:bg-blue-dark rounded size-full transition'
+          onClick={onLogin}
+        >
+          Login
+        </button>
+      </div>
+    </form>
   );
 }
 
