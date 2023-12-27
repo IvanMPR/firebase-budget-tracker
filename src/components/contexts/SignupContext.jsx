@@ -10,10 +10,11 @@ function SignupProvider({ children }) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   async function onSubmit(e) {
     e.preventDefault();
-
+    setIsLoading(true);
     await createUserWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         // Signed in
@@ -25,6 +26,9 @@ function SignupProvider({ children }) {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+      })
+      .finally(() => {
+        setIsLoading(false); // Set loading to false when submission ends
       });
   }
 
@@ -37,6 +41,7 @@ function SignupProvider({ children }) {
         password,
         setPassword,
         onSubmit,
+        isLoading,
       }}
     >
       {children}

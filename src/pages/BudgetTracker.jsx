@@ -4,8 +4,11 @@ import { auth } from "../firebase";
 import LogoutButton from "../components/LogoutButton";
 import Header from "../components/Header";
 import Main from "../components/Main";
+import Loader from "../components/Loader";
+import { useSignupContext } from "../components/contexts/SignupContext";
 
 function Home() {
+  const { isLoading } = useSignupContext();
   useEffect(() => {
     onAuthStateChanged(auth, user => {
       if (user) {
@@ -25,7 +28,7 @@ function Home() {
   return (
     <section>
       <Header />
-      <Main />
+      {isLoading ? <Loader /> : <Main />}
       <h1>Budget Tracker Main Window</h1> <LogoutButton />
     </section>
   );
