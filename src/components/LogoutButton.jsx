@@ -4,6 +4,7 @@ import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-hot-toast";
 function LogoutButton() {
   const navigate = useNavigate();
 
@@ -12,10 +13,11 @@ function LogoutButton() {
       .then(() => {
         // Sign-out successful.
         navigate("/");
-        console.log("Signed out successfully");
+        toast.success("Logged out successfully");
       })
       .catch(error => {
         // An error happened.
+        toast.error(error.message);
       });
   };
   return (

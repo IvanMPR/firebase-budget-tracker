@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
+import toast from "react-hot-toast";
 
 const SignupContext = createContext();
 
@@ -20,15 +21,18 @@ function SignupProvider({ children }) {
         // Signed in
         const user = userCredential.user;
         console.log(user);
-        navigate("/login");
+        // navigate("/login");
+        toast.success("Account created successfully ! Please login. ");
       })
       .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        if (error.code === "auth/email-already-in-use") {
+          toast.error("Email already in use");
+        }
       })
       .finally(() => {
-        setIsLoading(false); // Set loading to false when submission ends
+        setIsLoading(false);
       });
   }
 
