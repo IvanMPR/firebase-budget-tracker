@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import BudgetTracker from "./pages/BudgetTracker";
 import PageNotFound from "./pages/PageNotFound";
 
-import { SignupProvider } from "./components/contexts/SignupContext";
+import { SignupProvider } from "../src/contexts/SignupContext";
 import { Toaster } from "react-hot-toast";
 
 function App() {

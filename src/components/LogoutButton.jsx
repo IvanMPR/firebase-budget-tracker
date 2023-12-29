@@ -21,7 +21,10 @@ function LogoutButton() {
       });
   };
   return (
-    <button onClick={handleLogout} className=' text-stone-700 '>
+    <button
+      onClick={handleLogout}
+      className='inline-block  rounded-full bg-stone-700  font-semibold uppercase tracking-wide text-yellow-400 transition-colors hover:bg-stone-800 active:translate-y-[2px] disabled:cursor-not-allowed disabled:opacity-50 sm:px-6 sm:py-4 px-4 py-2 md:px-5 md:py-2.5 text-xs'
+    >
       <FontAwesomeIcon icon={faArrowRightFromBracket} /> Logout
     </button>
   );

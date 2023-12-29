@@ -1,4 +1,4 @@
-import { useSignupContext } from "./contexts/SignupContext";
+import { useSignupContext } from "../contexts/SignupContext";
 
 function SignupForm() {
   const { email, setEmail, password, setPassword, onSubmit } =

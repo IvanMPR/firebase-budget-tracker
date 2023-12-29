@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
 import toast from "react-hot-toast";
 
 const SignupContext = createContext();
@@ -28,8 +28,9 @@ function SignupProvider({ children }) {
         // const errorCode = error.code;
         // const errorMessage = error.message;
         if (error.code === "auth/email-already-in-use") {
-          toast.error("Email already in use");
+          toast.error("Email already in use. Please login. ");
         }
+        toast.error(error.code);
       })
       .finally(() => {
         setIsLoading(false);
