@@ -3,19 +3,19 @@ import Amount from "./Amount";
 function Amounts({ availableFunds, incomeFunds, expenseFunds, percentage }) {
   return (
     <>
-      <Amount bgColor='lightgray'>
-        <span className='label-span'>Available funds: </span>
-        <h2>{availableFunds}</h2>
+      <Amount bgColor='bg-slate-400' ring='ring-3 ring-slate-400 ring-offset-2'>
+        <span className='block text-yellow-400'>Available funds: </span>
+        <h3 className='font-bold text-yellow-400'>{availableFunds}</h3>
       </Amount>
-      <Amount bgColor='yellowgreen'>
-        <span className='label-span'>Income: </span>
-        <h3>{incomeFunds}</h3>
+      <Amount bgColor='bg-stone-700' ring='ring-3 ring-green-400 ring-offset-2'>
+        <span className='block text-yellow-400'>Income: </span>
+        <h3 className='font-bold text-yellow-400'>{incomeFunds}</h3>
       </Amount>
-      <Amount bgColor='orangered'>
-        <span className='label-span'>Expense: </span>
-        <h3>{expenseFunds}</h3>
-        <span className='label-span'>{percentage}%</span>
+      <Amount bgColor='bg-red-400' ring='ring-3 ring-red-400 ring-offset-2'>
+        <span className='block text-yellow-400'>Expense: </span>
+        <h3 className='font-bold text-yellow-400'>{expenseFunds}</h3>
       </Amount>
+      <span className='block text-yellow-400'>{percentage}%</span>
     </>
   );
 }

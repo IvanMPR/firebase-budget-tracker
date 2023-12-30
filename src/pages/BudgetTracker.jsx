@@ -3,7 +3,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 
 import Header from "../components/Header";
-import Main from "../components/Main";
+
 import Loader from "../components/Loader";
 import { useSignupContext } from "../contexts/SignupContext";
 
@@ -152,9 +152,10 @@ function Home() {
   return (
     <section>
       <Header />
-      {isLoading ? <Loader /> : <Main />}
-      <div className=' max-w-7xl m-auto'>
-        <h1>Budget Tracker App - useReducer Hook Practice</h1>
+      <div className=' w-screen flex flex-col items-center justify-center'>
+        <h2 className='uppercase text-xl text-yellow-500 my-4 tracking-wide'>
+          Budget Summary
+        </h2>
         <Amounts
           availableFunds={availableFunds}
           incomeFunds={incomeFunds}
@@ -163,14 +164,14 @@ function Home() {
         />
         <Inputs>
           <RadioInputs>
-            <label>Income</label>
+            <label className=' uppercase'>Income</label>
             <input
               type='radio'
               name='inputs'
               defaultChecked
               onChange={() => dispatch({ type: "type", payload: "inc" })}
             />
-            <label>Expense</label>
+            <label className=' uppercase'>Expense</label>
             <input
               type='radio'
               name='inputs'

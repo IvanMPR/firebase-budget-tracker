@@ -1,3 +1,10 @@
+import {
+  faCircleInfo,
+  faPenToSquare,
+  faT,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 function ListItem(props) {
@@ -9,25 +16,28 @@ function ListItem(props) {
   }
 
   return (
-    <li className='li-item'>
+    <li className='py-2 px-4 mb-2 w-full flex justify-between items-center border-y-2 border-slate-700 odd:bg-yellow-400'>
       {props.entry.desc}
       {showInfo && <span className='created-at'>{props.entry.time}</span>}
       <div>
         <span className='item-amount'>{props.entry.amount}</span>
       </div>
-      <div>
-        <span className='btn-info' onClick={handleInfo}>
-          <i
-            className='fa-solid fa-circle-info'
+      <div className='flex items-center justify-center gap-2'>
+        <span
+          className='btn-info text-slate-700  hover:text-slate-800 cursor-pointer'
+          onClick={handleInfo}
+        >
+          <FontAwesomeIcon
+            icon={faCircleInfo}
             title={
               props.isEditing
                 ? "Can't open more info while editing"
                 : "Click for date/time info"
             }
-          ></i>
+          />
         </span>
         <span
-          className='btn-edit'
+          className='btn-edit  text-slate-700  hover:text-slate-800 cursor-pointer'
           onClick={() => {
             props.dispatch({
               type: "openEditMode",
@@ -39,27 +49,27 @@ function ListItem(props) {
             });
           }}
         >
-          <i
-            className='fa-solid fa-pen-to-square'
+          <FontAwesomeIcon
+            icon={faPenToSquare}
             title={
               props.isEditing ? "Can't edit while modal is open" : "Edit entry"
             }
-          ></i>
+          />
         </span>
         <span
-          className='btn-delete'
+          className='btn-delete  text-slate-700 cursor-pointer hover:text-slate-800'
           onClick={() => {
             props.dispatch({ type: "deleteEntry", payload: props.entry.id });
           }}
         >
-          <i
-            className='fa-solid fa-trash'
+          <FontAwesomeIcon
+            icon={faTrash}
             title={
               props.isEditing
                 ? "Can't delete entry while modal is open"
                 : "Delete entry"
             }
-          ></i>
+          />
         </span>
       </div>
     </li>

@@ -20,7 +20,16 @@ export default {
       // sans: ["Graphik", "sans-serif"],
       sans: "Roboto Mono, monospace",
     },
-    extend: {},
+    extend: {
+      ringOffsetWidth: {
+        3: "3px",
+        6: "6px",
+        10: "10px",
+      },
+      ringWidth: {
+        3: "3px",
+      },
+    },
   },
   plugins: [],
 };

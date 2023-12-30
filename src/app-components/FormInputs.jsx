@@ -1,3 +1,5 @@
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useEffect } from "react";
 
 function FormInputs({ dispatch, desc, amount, entries, type }) {
@@ -8,11 +10,11 @@ function FormInputs({ dispatch, desc, amount, entries, type }) {
   }, [type, entries]);
 
   return (
-    <form className='other-inputs'>
+    <form className='flex justify-between items-center w-2/3'>
       <input
         type='text'
         placeholder='Add description'
-        className='value-inputs'
+        className='py-2 px-4 mr-4'
         onChange={e => dispatch({ type: "desc", payload: e.target.value })}
         value={desc}
         ref={descriptionInput}
@@ -20,7 +22,7 @@ function FormInputs({ dispatch, desc, amount, entries, type }) {
       <input
         type='number'
         placeholder='Add amount'
-        className='value-inputs'
+        className='py-2 px-4 mr-4'
         onChange={e =>
           dispatch({ type: "value", payload: Number(e.target.value) })
         }
@@ -28,13 +30,13 @@ function FormInputs({ dispatch, desc, amount, entries, type }) {
       />
       <button
         type='submit'
-        className='btn'
+        className='inline-block  rounded-full bg-stone-700  font-semibold uppercase tracking-wide text-yellow-400 transition-colors hover:bg-stone-800 active:translate-y-[2px] disabled:cursor-not-allowed disabled:opacity-50 sm:px-6 sm:py-4 px-4 py-2 md:px-5 md:py-2.5 text-xs'
         onClick={e => {
           e.preventDefault();
           dispatch({ type: "addEntry" });
         }}
       >
-        New entry
+        <FontAwesomeIcon icon={faPlus} /> Add entry
       </button>
     </form>
   );

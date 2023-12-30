@@ -2,7 +2,7 @@ import ListItem from "./ListItem";
 
 function List(props) {
   return (
-    <div className='single-list'>
+    <div className='w-full'>
       <ul className={`list ${props.type}`}>
         {props.entriesType.map(entry => (
           <ListItem
