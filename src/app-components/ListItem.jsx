@@ -1,18 +1,19 @@
 import {
   faCircleInfo,
   faPenToSquare,
-  faT,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 function ListItem(props) {
-  const [showInfo, setShowInfo] = useState(false);
-
+  // const [showInfo, setShowInfo] = useState(false);
+  const showInfo = false;
   function handleInfo() {
     if (props.isEditing) return;
-    setShowInfo(!showInfo);
+    // setShowInfo(!showInfo);
+    toast(`📃 Entry created at ${props.entry.time}`);
   }
 
   return (

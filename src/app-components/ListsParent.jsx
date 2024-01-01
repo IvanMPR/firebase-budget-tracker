@@ -7,7 +7,9 @@ function ListsParent(props) {
     <ContentWrapper>
       <div className='w-full flex justify-between items-top my-4 m-auto'>
         <div className='w-full mx-2'>
-          <h2>Income</h2>
+          <h2 className='uppercase font-semibold mb-2 text-stone-700'>
+            Income 💲📈
+          </h2>
           {props.incomeEntries.length === 0 ? (
             <p>No income entries</p>
           ) : (
@@ -20,7 +22,9 @@ function ListsParent(props) {
           )}
         </div>
         <div className='w-full mx-2'>
-          <h2>Expense</h2>
+          <h2 className='mb-2 uppercase font-semibold text-stone-700'>
+            Expense
+          </h2>
           {props.expenseEntries.length === 0 ? (
             <p>No expense entries</p>
           ) : (

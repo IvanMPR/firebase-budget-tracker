@@ -15,7 +15,9 @@ function Amounts({ availableFunds, incomeFunds, expenseFunds, percentage }) {
         <span className='block text-yellow-400'>Expense: </span>
         <h3 className='font-bold text-yellow-400'>{expenseFunds}</h3>
       </Amount>
-      <span className='block text-yellow-400'>{percentage}%</span>
+      <span className='block text-stone-700 font-bold text-xl'>
+        {percentage}%
+      </span>
     </>
   );
 }
