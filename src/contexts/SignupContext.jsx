@@ -9,12 +9,12 @@ const SignupContext = createContext();
 function SignupProvider({ children }) {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  async function onSubmit(e) {
-    e.preventDefault();
+  async function onSubmit(email, password) {
+    // e.preventDefault();
     setIsLoading(true);
     await createUserWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
@@ -41,10 +41,10 @@ function SignupProvider({ children }) {
     <SignupContext.Provider
       value={{
         navigate,
-        email,
-        setEmail,
-        password,
-        setPassword,
+        // email,
+        // setEmail,
+        // password,
+        // setPassword,
         onSubmit,
         isLoading,
       }}
