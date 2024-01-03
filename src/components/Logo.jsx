@@ -1,8 +1,8 @@
 function Logo() {
   return (
     <div>
-      <h1 className=' uppercase text-lg font-bold tracking-widest text-stone-700'>
-        Budget Tracker App
+      <h1 className=' uppercase text-xl font-bold tracking-wide text-stone-700'>
+        Budget Tracker
       </h1>
     </div>
   );

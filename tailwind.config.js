@@ -3,6 +3,7 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     // colors: {
+    // peach: "#F3C3B0",
     //   blue: "#209CEE",
     //   "blue-dark": "#1D8ACB",
     //   purple: "#7e5bef",
@@ -32,5 +33,8 @@ export default {
     },
   },
   plugins: [],
+  backgroundImage: {
+    bg: "url('../../public/backgroundImage.jpg')",
+  },
 };
 // no male user by Suncheli Project from <a href="https://thenounproject.com/browse/icons/term/no-male-user/" target="_blank" title="no male user Icons">Noun Project</a> (CC BY 3.0)
