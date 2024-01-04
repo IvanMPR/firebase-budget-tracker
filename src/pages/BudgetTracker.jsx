@@ -153,9 +153,9 @@ function Home() {
     <section>
       <Header />
       <div className=' w-screen flex flex-col items-center justify-center'>
-        <h2 className='uppercase text-xl text-yellow-500 my-4 tracking-wide'>
+        {/* <h2 className='uppercase text-xl text-yellow-500 my-4 tracking-wide'>
           Budget Summary
-        </h2>
+        </h2> */}
         <Amounts
           availableFunds={availableFunds}
           incomeFunds={incomeFunds}

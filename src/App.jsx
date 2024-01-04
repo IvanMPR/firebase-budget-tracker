@@ -7,14 +7,16 @@ import PageNotFound from "./pages/PageNotFound";
 
 import { SignupProvider } from "../src/contexts/SignupContext";
 import { Toaster } from "react-hot-toast";
+import Home from "./components/Home";
 
 function App() {
   return (
     <BrowserRouter>
       <SignupProvider>
         <Routes>
-          <Route path='/' element={<SignupPage />} />
+          <Route path='/' element={<Home />} />
           <Route path='login' element={<Login />} />
+          <Route path='signup' element={<SignupPage />} />
           <Route path='budget-tracker' element={<BudgetTracker />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
