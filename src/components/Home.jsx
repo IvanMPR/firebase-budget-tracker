@@ -26,11 +26,13 @@ function Home() {
             <p className=' text-stone-700 text-5xl w-2/3 leading-[4rem] mb-8'>
               Keep track of your finances with this awesome app!
             </p>
-            <Link to='/signup'>
-              <button className='inline-block rounded-full w-40 bg-stone-700  font-semibold uppercase tracking-wide text-yellow-400 transition-colors hover:bg-stone-800 active:translate-y-[2px] disabled:cursor-not-allowed disabled:opacity-50 sm:px-6 sm:py-4 px-4 py-2 md:px-5 md:py-2.5 text-xs'>
-                <FontAwesomeIcon icon={faUserPlus} /> Sign Up Here
-              </button>
-            </Link>
+            <div>
+              <Link to='/signup'>
+                <button className='inline-block rounded-full w-40 bg-stone-700  font-semibold uppercase tracking-wide text-yellow-400 transition-colors hover:bg-stone-800 active:translate-y-[2px] disabled:cursor-not-allowed disabled:opacity-50 sm:px-6 sm:py-4 px-4 py-2 md:px-5 md:py-2.5 text-xs'>
+                  <FontAwesomeIcon icon={faUserPlus} /> Sign Up Here
+                </button>
+              </Link>
+            </div>
           </div>
         </ContentWrapper>
       </section>
