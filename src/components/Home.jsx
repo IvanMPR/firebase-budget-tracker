@@ -11,7 +11,7 @@ function Home() {
       <Header />
       <section
         style={{
-          backgroundImage: ` url('/yellowlarge.png')`,
+          backgroundImage: ` url('/bgd.png')`,
           height: "calc(100vh - 4.5rem)",
         }}
         className='w-full bg-cover  bg-top'
