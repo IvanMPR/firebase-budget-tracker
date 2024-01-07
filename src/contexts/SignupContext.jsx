@@ -10,7 +10,7 @@ function SignupProvider({ children }) {
   const navigate = useNavigate();
 
   // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
+  // const [password, setPassword] = useState("");  
   const [isLoading, setIsLoading] = useState(false);
 
   async function onSubmit(email, password) {
