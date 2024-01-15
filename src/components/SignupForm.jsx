@@ -1,17 +1,31 @@
 import { useForm } from "react-hook-form";
-import { useSignupContext } from "../contexts/SignupContext";
+import { useAuthContext } from "../contexts/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-hot-toast";
 
 function SignupForm() {
-  const { onSubmit } = useSignupContext();
+  const { createUser, setUser } = useAuthContext();
   const { register, handleSubmit } = useForm();
-  // const { errors } = formState;
 
-  function signUpUser({ email, password }) {
-    // e.preventDefault();
-    console.log(email, password);
-    onSubmit(email, password);
+  function onCreateUser({ email, password }) {
+    createUser(email, password)
+      .then(userCredential => {
+        const user = userCredential.user;
+        console.log(user);
+
+        toast.success("Account created successfully ! Please login. ");
+        setUser(user);
+      })
+      .catch(error => {
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        if (error.code === "auth/email-already-in-use") {
+          toast.error("Email already in use. Please login. ");
+        } else {
+          toast.error(error.code);
+        }
+      });
   }
 
   function onError(errors) {
@@ -23,14 +37,14 @@ function SignupForm() {
       <h2 className=' uppercase text-stone-700 text-lg tracking-widest p-4 font-bold text-center'>
         Create Account
       </h2>
-      <form onSubmit={handleSubmit(signUpUser, onError)}>
+      <form onSubmit={handleSubmit(onCreateUser, onError)}>
         <div className=' flex flex-col justify-center mb-2'>
           {/* {errors?.email?.message && (
           <p className='text-sm italic'>{errors.email.message}</p>
         )} */}
           <input
             type='email'
-            label='Email address'
+            // label='Email address'
             id='email'
             // value={email}
             // onChange={e => setEmail(e.target.value)}
@@ -46,7 +60,7 @@ function SignupForm() {
           <input
             type='password'
             id='password'
-            label='Create password'
+            // label='Create password'
             // value={password}
             // onChange={e => setPassword(e.target.value)}
             required

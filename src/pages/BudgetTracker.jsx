@@ -5,7 +5,7 @@ import { auth } from "../firebase";
 import Header from "../components/Header";
 
 import Loader from "../components/Loader";
-import { useSignupContext } from "../contexts/SignupContext";
+import { useAuthContext } from "../contexts/AuthContext";
 
 import Amounts from "../app-components/Amounts";
 import FormInputs from "../app-components/FormInputs";
@@ -109,7 +109,7 @@ function reducer(state, { type, payload }) {
 }
 
 function Home() {
-  const { isLoading } = useSignupContext();
+  const { isLoading } = useAuthContext();
   const [
     { entries, type, desc, amount, isEditing, descToEdit, amountToEdit },
     dispatch,
