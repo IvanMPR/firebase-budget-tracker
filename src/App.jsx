@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import BudgetTracker from "./pages/BudgetTracker";
 import PageNotFound from "./pages/PageNotFound";
 
-import { SignupProvider } from "../src/contexts/SignupContext";
+import { AuthProvider } from "../src/contexts/AuthContext";
 import { Toaster } from "react-hot-toast";
 import Home from "./components/Home";
 import ProtectedRoute from "./pages/ProtectedRoute";
@@ -13,7 +13,7 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 function App() {
   return (
     <BrowserRouter>
-      <SignupProvider>
+      <AuthProvider>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='login' element={<Login />} />
@@ -28,7 +28,7 @@ function App() {
           />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
-      </SignupProvider>
+      </AuthProvider>
       <Toaster
         position='top-center'
         gutter={12}
