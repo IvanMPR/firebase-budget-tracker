@@ -1,8 +1,11 @@
 import LogoutButton from "./LogoutButton";
-import { auth } from "../firebase";
 import User from "./User";
+
+import { useAuthContext } from "../contexts/AuthContext";
+
 function Avatar() {
-  const username = auth.currentUser.email.split("@")[0];
+  const { user } = useAuthContext();
+  const username = user.email.split("@")[0];
   return (
     <div className='flex items-center'>
       <div className='mx-5'>

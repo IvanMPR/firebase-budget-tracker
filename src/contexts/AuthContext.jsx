@@ -49,6 +49,7 @@ function AuthProvider({ children }) {
         loginUser,
         logOut,
         isLoading,
+        setIsLoading,
       }}
     >
       {children}

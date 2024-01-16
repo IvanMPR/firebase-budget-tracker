@@ -3,9 +3,12 @@ import { useAuthContext } from "../contexts/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
+import { db } from "../firebase";
+
+import { doc, setDoc } from "firebase/firestore";
 
 function SignupForm() {
-  const { createUser, setUser } = useAuthContext();
+  const { createUser, setIsLoading } = useAuthContext();
   const { register, handleSubmit } = useForm();
 
   function onCreateUser({ email, password }) {
@@ -13,17 +16,24 @@ function SignupForm() {
       .then(userCredential => {
         const user = userCredential.user;
         console.log(user);
-
+        const userRef = doc(db, "users/", user.uid);
+        setDoc(userRef, {
+          email: user.email,
+          uid: user.uid,
+          entries: [],
+        });
         toast.success("Account created successfully ! Please login. ");
-        setUser(user);
+        // setUser(user);
       })
       .catch(error => {
         // const errorCode = error.code;
         // const errorMessage = error.message;
         if (error.code === "auth/email-already-in-use") {
           toast.error("Email already in use. Please login. ");
+          setIsLoading(false);
         } else {
           toast.error(error.code);
+          setIsLoading(false);
         }
       });
   }

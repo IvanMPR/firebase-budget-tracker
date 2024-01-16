@@ -9,15 +9,18 @@ import Loader from "../components/Loader";
 function Login() {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
-  const { isLoading, loginUser } = useAuthContext();
+  const { isLoading, loginUser, setIsLoading } = useAuthContext();
 
   function onUserLogin({ email, password }) {
     loginUser(email, password)
       .then(result => {
         // console.log(result);
-        navigate("budget-tracker");
+        navigate("/budget-tracker");
       })
-      .catch(error => toast.error(error.message));
+      .catch(error => {
+        toast.error(error.message);
+        setIsLoading(false);
+      });
   }
 
   return isLoading ? (
