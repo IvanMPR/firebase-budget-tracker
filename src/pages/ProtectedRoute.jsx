@@ -9,7 +9,7 @@ function ProtectedRoute({ children }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(user);
+    // console.log(user);
     if (!user) navigate("/");
   }, [user, navigate]);
 
