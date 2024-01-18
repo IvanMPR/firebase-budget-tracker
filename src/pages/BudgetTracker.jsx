@@ -14,8 +14,27 @@ import Inputs from "../app-components/Inputs";
 import ListsParent from "../app-components/ListsParent";
 import RadioInputs from "../app-components/RadioInputs";
 
+import Loader from "../components/Loader";
+import { db } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { useAuthContext } from "../contexts/AuthContext";
+
+function loadUserEntries(authUser) {
+  const docRef = doc(db, "users", authUser.user.uid);
+  const docSnap = getDoc(docRef).then(doc => {
+    if (doc.exists()) {
+      console.log("Document data:", doc.data().entries);
+      return doc.data().entries;
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+      return [];
+    }
+  });
+}
+
 function Home() {
-  // const { isLoading } = useAuthContext();
+  const { user } = useAuthContext();
   const [
     { entries, type, desc, amount, isEditing, descToEdit, amountToEdit },
     dispatch,
@@ -37,23 +56,24 @@ function Home() {
   const percentage = Math.round((expenseFunds / incomeFunds) * 100) || "";
   // effects
   useEffect(() => {
-    localStorage.setItem("entries", JSON.stringify(entries));
-  }, [entries]);
-  useEffect(() => {
-    onAuthStateChanged(auth, user => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-        // ...
-        // console.log("uid", uid);
-      } else {
-        // User is signed out
-        // ...
-        console.log("user is logged out");
-      }
-    });
-  }, []);
+    // localStorage.setItem("entries", JSON.stringify(entries));
+    if (user) loadUserEntries(user);
+  }, [user]);
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, user => {
+  //     if (user) {
+  //       // User is signed in, see docs for a list of available properties
+  //       // https://firebase.google.com/docs/reference/js/firebase.User
+  //       const uid = user.uid;
+  //       // ...
+  //       // console.log("uid", uid);
+  //     } else {
+  //       // User is signed out
+  //       // ...
+  //       console.log("user is logged out");
+  //     }
+  //   });
+  // }, []);
 
   return (
     <section>
