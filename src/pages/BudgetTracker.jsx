@@ -55,10 +55,10 @@ function Home() {
 
   const percentage = Math.round((expenseFunds / incomeFunds) * 100) || "";
   // effects
-  useEffect(() => {
-    // localStorage.setItem("entries", JSON.stringify(entries));
-    if (user) loadUserEntries(user);
-  }, [user]);
+  // useEffect(() => {
+  //   // localStorage.setItem("entries", JSON.stringify(entries));
+  //   if (user) loadUserEntries(user);
+  // }, [user]);
   // useEffect(() => {
   //   onAuthStateChanged(auth, user => {
   //     if (user) {

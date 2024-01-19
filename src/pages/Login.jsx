@@ -5,62 +5,45 @@ import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { useAuthContext } from "../contexts/AuthContext";
 import Loader from "../components/Loader";
-// import { db } from "../firebase";
-// import { doc, getDoc } from "firebase/firestore";
-// import { useEffect } from "react";
+import { db } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { useEffect } from "react";
+import { initialState } from "../reducer";
 
-// function loadUserEntries(result) {
-//   const docRef = doc(db, "users", result.user.uid);
-//   const docSnap = getDoc(docRef).then(doc => {
-//     if (doc.exists()) {
-//       console.log("Document data:", doc.data().entries);
-//     } else {
-//       // doc.data() will be undefined in this case
-//       console.log("No such document!");
-//     }
-//   });
-// }
+function loadUserEntries(result) {
+  const docRef = doc(db, "users", result.user.uid);
+  const docSnap = getDoc(docRef)
+    .then(doc => {
+      if (doc.exists()) {
+        console.log("Document data:", doc.data().entries);
+        console.log(doc.data().entries.forEach(entry => console.log(entry)));
+        initialState.entries = doc.data().entries;
+        console.log(initialState.entries, "from login - initialState.entries");
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    })
+    .catch(err => console.log(err.message));
+}
 
 function Login() {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
-  const { isLoading, loginUser, setIsLoading, user } = useAuthContext();
+  const { isLoading, loginUser, setIsLoading } = useAuthContext();
 
   function onUserLogin({ email, password }) {
     loginUser(email, password)
       .then(result => {
         // console.log(result, "from login");
         navigate("/budget-tracker");
-        // loadUserEntries(result);
+        loadUserEntries(result);
       })
       .catch(error => {
         toast.error(error.message);
         setIsLoading(false);
       });
-    // if (user) ;
   }
-
-  // useEffect(() => {
-  //   console.log("User:", user);
-  //   console.log("User ID:", user && user.uid);
-  //   if (user) {
-  //     console.log(user, "from login");
-
-  //     getUserData(user);
-  //   }
-  // }, [user]);
-  // getUserData(result.user.uid);
-  //  const docRef = doc(db, "users", result.user.uid);
-  //  const docSnap = getDoc(docRef).then(doc => {
-  //    if (doc.exists()) {
-  //      console.log("Document data:", doc.data());
-  //    } else {
-  //      // doc.data() will be undefined in this case
-  //      console.log("No such document!");
-  //    }
-  //  });
-  //  console.log(docRef, "from login - docRef");
-  //  console.log(docSnap, "from login - docSnap");
 
   return isLoading ? (
     <Loader />

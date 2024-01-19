@@ -11,19 +11,24 @@ function SignupForm() {
   const { createUser, setIsLoading } = useAuthContext();
   const { register, handleSubmit } = useForm();
 
+  function connectUserToFirestore(user, collection, id) {
+    const userRef = doc(db, collection, id);
+    setDoc(userRef, {
+      email: user.email,
+      uid: user.uid,
+      entries: [],
+    });
+  }
   function onCreateUser({ email, password }) {
     createUser(email, password)
       .then(userCredential => {
-        const user = userCredential.user;
-        console.log(user);
-        const userRef = doc(db, "users/", user.uid);
-        setDoc(userRef, {
-          email: user.email,
-          uid: user.uid,
-          entries: [],
-        });
+        connectUserToFirestore(
+          userCredential.user,
+          "users",
+          userCredential.user.uid
+        );
+
         toast.success("Account created successfully ! Please login. ");
-        // setUser(user);
       })
       .catch(error => {
         // const errorCode = error.code;
