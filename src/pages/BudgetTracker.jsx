@@ -1,9 +1,10 @@
 import React, { useEffect, useReducer } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase";
+// import { onAuthStateChanged } from "firebase/auth";
+// import { auth } from "../firebase";
 import { initialState } from "../reducer";
 import reducer from "../reducer";
-
+// import { db } from "../firebase";
+// import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 import Header from "../components/Header";
 
 // import { useAuthContext } from "../contexts/AuthContext";
@@ -14,24 +15,24 @@ import Inputs from "../app-components/Inputs";
 import ListsParent from "../app-components/ListsParent";
 import RadioInputs from "../app-components/RadioInputs";
 
-import Loader from "../components/Loader";
-import { db } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
+// import Loader from "../components/Loader";
+// import { db } from "../firebase";
+// import { doc, getDoc } from "firebase/firestore";
 import { useAuthContext } from "../contexts/AuthContext";
 
-function loadUserEntries(authUser) {
-  const docRef = doc(db, "users", authUser.user.uid);
-  const docSnap = getDoc(docRef).then(doc => {
-    if (doc.exists()) {
-      console.log("Document data:", doc.data().entries);
-      return doc.data().entries;
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
-      return [];
-    }
-  });
-}
+// function loadUserEntries(authUser) {
+//   const docRef = doc(db, "users", authUser.user.uid);
+//   const docSnap = getDoc(docRef).then(doc => {
+//     if (doc.exists()) {
+//       console.log("Document data:", doc.data().entries);
+//       return doc.data().entries;
+//     } else {
+//       // doc.data() will be undefined in this case
+//       console.log("No such document!");
+//       return [];
+//     }
+//   });
+// }
 
 function Home() {
   const { user } = useAuthContext();
@@ -39,6 +40,7 @@ function Home() {
     { entries, type, desc, amount, isEditing, descToEdit, amountToEdit },
     dispatch,
   ] = useReducer(reducer, initialState);
+  // ovde dodati inital state u state i onda svaku promenu u stateu sacuvati u firestore
   // derived state
   const incomeEntries = entries.filter(entry => entry.type === "inc");
   const expenseEntries = entries.filter(entry => entry.type === "exp");
@@ -56,9 +58,20 @@ function Home() {
   const percentage = Math.round((expenseFunds / incomeFunds) * 100) || "";
   // effects
   // useEffect(() => {
-  //   // localStorage.setItem("entries", JSON.stringify(entries));
-  //   if (user) loadUserEntries(user);
-  // }, [user]);
+  //   // Update the entries field of the currently logged in user's document
+  //   const userDoc = doc(db, "users", user.uid); // replace "authUser.uid" with the ID of the currently logged in user
+  //   console.log(user.uid, "from user uid");
+  //   const entries = initialState.entries;
+  //   updateDoc(userDoc, {
+  //     entries: arrayUnion(...entries),
+  //   })
+  //     .then(() => {
+  //       console.log("Document successfully updated!");
+  //     })
+  //     .catch(error => {
+  //       console.error("Error updating document: ", error);
+  //     });
+  // }, [entries]);
   // useEffect(() => {
   //   onAuthStateChanged(auth, user => {
   //     if (user) {
