@@ -54,7 +54,7 @@ function AuthProvider({ children }) {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [user]);
 
   return (
     <AuthContext.Provider
