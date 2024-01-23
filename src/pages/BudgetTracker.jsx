@@ -1,10 +1,10 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 // import { onAuthStateChanged } from "firebase/auth";
 // import { auth } from "../firebase";
 import { initialState } from "../reducer";
 import reducer from "../reducer";
-// import { db } from "../firebase";
-// import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { db } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
 import Header from "../components/Header";
 
 // import { useAuthContext } from "../contexts/AuthContext";
@@ -20,22 +20,9 @@ import RadioInputs from "../app-components/RadioInputs";
 // import { doc, getDoc } from "firebase/firestore";
 import { useAuthContext } from "../contexts/AuthContext";
 
-// function loadUserEntries(authUser) {
-//   const docRef = doc(db, "users", authUser.user.uid);
-//   const docSnap = getDoc(docRef).then(doc => {
-//     if (doc.exists()) {
-//       console.log("Document data:", doc.data().entries);
-//       return doc.data().entries;
-//     } else {
-//       // doc.data() will be undefined in this case
-//       console.log("No such document!");
-//       return [];
-//     }
-//   });
-// }
-
 function Home() {
   const { user } = useAuthContext();
+  const [state, setState] = useState(initialState);
   const [
     { entries, type, desc, amount, isEditing, descToEdit, amountToEdit },
     dispatch,
@@ -56,37 +43,29 @@ function Home() {
   const availableFunds = incomeFunds - expenseFunds;
 
   const percentage = Math.round((expenseFunds / incomeFunds) * 100) || "";
-  // effects
-  // useEffect(() => {
-  //   // Update the entries field of the currently logged in user's document
-  //   const userDoc = doc(db, "users", user.uid); // replace "authUser.uid" with the ID of the currently logged in user
-  //   console.log(user.uid, "from user uid");
-  //   const entries = initialState.entries;
-  //   updateDoc(userDoc, {
-  //     entries: arrayUnion(...entries),
-  //   })
-  //     .then(() => {
-  //       console.log("Document successfully updated!");
-  //     })
-  //     .catch(error => {
-  //       console.error("Error updating document: ", error);
-  //     });
-  // }, [entries]);
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, user => {
-  //     if (user) {
-  //       // User is signed in, see docs for a list of available properties
-  //       // https://firebase.google.com/docs/reference/js/firebase.User
-  //       const uid = user.uid;
-  //       // ...
-  //       // console.log("uid", uid);
-  //     } else {
-  //       // User is signed out
-  //       // ...
-  //       console.log("user is logged out");
-  //     }
-  //   });
-  // }, []);
+
+  useEffect(() => {
+    function loadUserEntries(user, setState) {
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = getDoc(docRef)
+        .then(doc => {
+          if (doc.exists()) {
+            console.log("Document data:", doc.data().entries);
+            setState(prevState => ({
+              ...prevState,
+              entries: doc.data().entries,
+            }));
+            // console.log(doc.data().entries.forEach(entry => console.log(entry)));
+            // initialState.entries = doc.data().entries;
+            console.log(state, "from login - initialState.entries");
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+          }
+        })
+        .catch(err => console.log(err.message));
+    }
+  }, [user, state]);
 
   return (
     <section>
