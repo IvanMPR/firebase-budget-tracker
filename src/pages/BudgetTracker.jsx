@@ -20,9 +20,30 @@ import RadioInputs from "../app-components/RadioInputs";
 // import { doc, getDoc } from "firebase/firestore";
 import { useAuthContext } from "../contexts/AuthContext";
 
+function loadUserEntries(user) {
+  const docRef = doc(db, "users", user.uid);
+  const docSnap = getDoc(docRef)
+    .then(doc => {
+      if (doc.exists()) {
+        console.log("Document data:", doc.data().entries);
+        // setState(prevState => ({
+        //   ...prevState,
+        //   entries: doc.data().entries,
+        // }));
+        // console.log(doc.data().entries.forEach(entry => console.log(entry)));
+        // initialState.entries = doc.data().entries;
+        // console.log(state, "from login - initialState.entries");
+        console.log(user, "from budgetTracker - user");
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    })
+    .catch(err => console.log(err.message));
+}
 function Home() {
   const { user } = useAuthContext();
-  const [state, setState] = useState(initialState);
+
   const [
     { entries, type, desc, amount, isEditing, descToEdit, amountToEdit },
     dispatch,
@@ -45,27 +66,9 @@ function Home() {
   const percentage = Math.round((expenseFunds / incomeFunds) * 100) || "";
 
   useEffect(() => {
-    function loadUserEntries(user, setState) {
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = getDoc(docRef)
-        .then(doc => {
-          if (doc.exists()) {
-            console.log("Document data:", doc.data().entries);
-            setState(prevState => ({
-              ...prevState,
-              entries: doc.data().entries,
-            }));
-            // console.log(doc.data().entries.forEach(entry => console.log(entry)));
-            // initialState.entries = doc.data().entries;
-            console.log(state, "from login - initialState.entries");
-          } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-          }
-        })
-        .catch(err => console.log(err.message));
-    }
-  }, [user, state]);
+    console.log(user, "from budgetTracker - user");
+    loadUserEntries(user);
+  }, [user]);
 
   return (
     <section>

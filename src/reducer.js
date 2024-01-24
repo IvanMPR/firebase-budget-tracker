@@ -1,8 +1,3 @@
-// import { db } from "./firebase";
-// import { doc, updateDoc, arrayUnion } from "firebase/firestore";
-// import { user as authUser } from "firebase/auth";
-// import { user } from "./firebase";
-// import { useAuthContext } from "./contexts/AuthContext";
 export const initialState = {
   entries: JSON.parse(localStorage.getItem("entries")) || [],
   type: "inc",
@@ -15,7 +10,6 @@ export const initialState = {
 };
 
 export default function reducer(state, { type, payload }) {
-  // const {pushEntryToFirestore} = useAuthContext();
   switch (type) {
     case "type":
       return { ...state, type: payload };
@@ -41,33 +35,6 @@ export default function reducer(state, { type, payload }) {
         alert("Please fill in all fields");
         return state;
       }
-      // Update the entries field of the currently logged in user's document
-      // const userDoc = doc(db, "users", user.uid); // replace "authUser.uid" with the ID of the currently logged in user
-      // console.log(user.uid, "from user uid");
-      // updateDoc(userDoc, {
-      //   entries: arrayUnion(newEntry),
-      // })
-      //   .then(() => {
-      //     console.log("Document successfully updated!");
-      //   })
-      //   .catch(error => {
-      //     console.error("Error updating document: ", error);
-      //   });
-      // if (authUser) {
-      //   // Write the new entry to the currently logged in user's document
-      //   const userDoc = doc(db, "users", authUser.uid); // replace "authUser.uid" with the ID of the currently logged in user
-      //   setDoc(
-      //     userDoc,
-      //     { entries: [...state.entries, newEntry] },
-      //     { merge: true }
-      //   )
-      //     .then(() => {
-      //       console.log("Document successfully written!");
-      //     })
-      //     .catch(error => {
-      //       console.error("Error writing document: ", error);
-      //     });
-      // }
 
       return {
         ...state,
