@@ -1,13 +1,10 @@
-import React, { useState, useEffect, useReducer } from "react";
-// import { onAuthStateChanged } from "firebase/auth";
-// import { auth } from "../firebase";
+import React, { useEffect, useReducer } from "react";
+
 import { initialState } from "../reducer";
 import reducer from "../reducer";
 import { db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Header from "../components/Header";
-
-// import { useAuthContext } from "../contexts/AuthContext";
 
 import Amounts from "../app-components/Amounts";
 import FormInputs from "../app-components/FormInputs";
@@ -15,32 +12,8 @@ import Inputs from "../app-components/Inputs";
 import ListsParent from "../app-components/ListsParent";
 import RadioInputs from "../app-components/RadioInputs";
 
-// import Loader from "../components/Loader";
-// import { db } from "../firebase";
-// import { doc, getDoc } from "firebase/firestore";
 import { useAuthContext } from "../contexts/AuthContext";
 
-function loadUserEntries(user) {
-  const docRef = doc(db, "users", user.uid);
-  const docSnap = getDoc(docRef)
-    .then(doc => {
-      if (doc.exists()) {
-        console.log("Document data:", doc.data().entries);
-        // setState(prevState => ({
-        //   ...prevState,
-        //   entries: doc.data().entries,
-        // }));
-        // console.log(doc.data().entries.forEach(entry => console.log(entry)));
-        // initialState.entries = doc.data().entries;
-        // console.log(state, "from login - initialState.entries");
-        console.log(user, "from budgetTracker - user");
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
-    })
-    .catch(err => console.log(err.message));
-}
 function Home() {
   const { user } = useAuthContext();
 
@@ -48,7 +21,7 @@ function Home() {
     { entries, type, desc, amount, isEditing, descToEdit, amountToEdit },
     dispatch,
   ] = useReducer(reducer, initialState);
-  // ovde dodati inital state u state i onda svaku promenu u stateu sacuvati u firestore
+
   // derived state
   const incomeEntries = entries.filter(entry => entry.type === "inc");
   const expenseEntries = entries.filter(entry => entry.type === "exp");
@@ -66,8 +39,20 @@ function Home() {
   const percentage = Math.round((expenseFunds / incomeFunds) * 100) || "";
 
   useEffect(() => {
-    console.log(user, "from budgetTracker - user");
-    loadUserEntries(user);
+    const docRef = doc(db, "users", user.uid);
+    // const docSnap
+    getDoc(docRef)
+      .then(doc => {
+        if (doc.exists()) {
+          console.log("Document data:", doc.data().entries);
+          dispatch({ type: "loadEntries", payload: doc.data().entries });
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+          dispatch({ type: "loadEntries", payload: [] });
+        }
+      })
+      .catch(err => console.log(err.message));
   }, [user]);
 
   return (

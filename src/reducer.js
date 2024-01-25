@@ -1,5 +1,22 @@
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { db } from "./firebase";
+import { user as userAuth } from "./firebase";
+
+async function addEntryToArrayInFirebase(userId, newEntry) {
+  const userDoc = doc(db, "users", userId);
+
+  try {
+    await updateDoc(userDoc, {
+      entries: arrayUnion(newEntry),
+    });
+    console.log("Entry added to array");
+  } catch (e) {
+    console.error("Error adding entry to array: ", e);
+  }
+}
 export const initialState = {
-  entries: JSON.parse(localStorage.getItem("entries")) || [],
+  // entries: JSON.parse(localStorage.getItem("entries")) || [],
+  entries: [],
   type: "inc",
   desc: "",
   amount: 0,
@@ -17,6 +34,8 @@ export default function reducer(state, { type, payload }) {
       return { ...state, desc: payload };
     case "value":
       return { ...state, amount: payload };
+    case "loadEntries":
+      return { ...state, entries: payload };
     case "addEntry":
       const newEntry = {
         id: crypto.randomUUID(),
@@ -35,7 +54,7 @@ export default function reducer(state, { type, payload }) {
         alert("Please fill in all fields");
         return state;
       }
-
+      addEntryToArrayInFirebase(userAuth.uid, newEntry);
       return {
         ...state,
         entries: [...state.entries, newEntry],
