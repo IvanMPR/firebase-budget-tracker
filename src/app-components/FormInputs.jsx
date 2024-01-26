@@ -1,10 +1,54 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useEffect } from "react";
+import { user as userAuth } from "../firebase";
+import { initialState as state } from "../reducer";
+import { db } from "../firebase";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+// ne valja
+function addEntryToArrayInFirebase(userId, newEntry) {
+  const userDoc = doc(db, "users", userId);
+  updateDoc(userDoc, {
+    entries: arrayUnion(newEntry),
+  })
+    .then(() => {
+      console.log("Entry added to array");
+    })
+    .catch(error => {
+      console.error("Error adding entry to array: ", error);
+    });
+}
 
 function FormInputs({ dispatch, desc, amount, entries, type }) {
   const descriptionInput = useRef(null);
+  // In your component or wherever you dispatch the 'addEntry' action
+  const handleAddEntry = async () => {
+    const newEntry = {
+      id: crypto.randomUUID(),
+      type: state.type,
+      desc: state.desc,
+      amount: state.amount,
+      time: new Date().toLocaleString("en-us", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    };
 
+    if (newEntry.desc === "" || newEntry.amount === 0) {
+      alert("Please fill in all fields");
+    } else {
+      addEntryToArrayInFirebase(userAuth.uid, newEntry)
+        .then(() => {
+          dispatch({ type: "addEntry", payload: newEntry });
+        })
+        .catch(error => {
+          console.error("Error adding entry to array: ", error);
+        });
+    }
+  };
   useEffect(() => {
     descriptionInput.current.focus();
   }, [type, entries]);
@@ -33,7 +77,8 @@ function FormInputs({ dispatch, desc, amount, entries, type }) {
         className='inline-block  rounded-full bg-stone-700  font-semibold uppercase tracking-wide text-yellow-400 transition-colors hover:bg-stone-800 active:translate-y-[2px] disabled:cursor-not-allowed disabled:opacity-50 sm:px-6 sm:py-4 px-4 py-2 md:px-5 md:py-2.5 text-xs'
         onClick={e => {
           e.preventDefault();
-          dispatch({ type: "addEntry" });
+          // dispatch({ type: "addEntry" });
+          handleAddEntry();
         }}
       >
         <FontAwesomeIcon icon={faPlus} /> Add entry
