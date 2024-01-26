@@ -1,19 +1,19 @@
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "./firebase";
-import { user as userAuth } from "./firebase";
+// import { user as userAuth } from "./firebase";
 
-async function addEntryToArrayInFirebase(userId, newEntry) {
-  const userDoc = doc(db, "users", userId);
+// async function addEntryToArrayInFirebase(userId, newEntry) {
+//   const userDoc = doc(db, "users", userId);
 
-  try {
-    await updateDoc(userDoc, {
-      entries: arrayUnion(newEntry),
-    });
-    console.log("Entry added to array");
-  } catch (e) {
-    console.error("Error adding entry to array: ", e);
-  }
-}
+//   try {
+//     await updateDoc(userDoc, {
+//       entries: arrayUnion(newEntry),
+//     });
+//     console.log("Entry added to array");
+//   } catch (e) {
+//     console.error("Error adding entry to array: ", e);
+//   }
+// }
 export const initialState = {
   // entries: JSON.parse(localStorage.getItem("entries")) || [],
   entries: [],
@@ -54,7 +54,7 @@ export default function reducer(state, { type, payload }) {
         alert("Please fill in all fields");
         return state;
       }
-      addEntryToArrayInFirebase(userAuth.uid, newEntry);
+      // addEntryToArrayInFirebase(userAuth.uid, newEntry);
       return {
         ...state,
         entries: [...state.entries, newEntry],
