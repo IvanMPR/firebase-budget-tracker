@@ -1,21 +1,4 @@
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
-import { db } from "./firebase";
-// import { user as userAuth } from "./firebase";
-
-// async function addEntryToArrayInFirebase(userId, newEntry) {
-//   const userDoc = doc(db, "users", userId);
-
-//   try {
-//     await updateDoc(userDoc, {
-//       entries: arrayUnion(newEntry),
-//     });
-//     console.log("Entry added to array");
-//   } catch (e) {
-//     console.error("Error adding entry to array: ", e);
-//   }
-// }
 export const initialState = {
-  // entries: JSON.parse(localStorage.getItem("entries")) || [],
   entries: [],
   type: "inc",
   desc: "",
@@ -37,27 +20,9 @@ export default function reducer(state, { type, payload }) {
     case "loadEntries":
       return { ...state, entries: payload };
     case "addEntry":
-      const newEntry = {
-        id: crypto.randomUUID(),
-        type: state.type,
-        desc: state.desc,
-        amount: state.amount,
-        time: new Date().toLocaleString("en-us", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "2-digit",
-          hour: "2-digit",
-          minute: "2-digit",
-        }),
-      };
-      if (newEntry.desc === "" || newEntry.amount === 0) {
-        alert("Please fill in all fields");
-        return state;
-      }
-      // addEntryToArrayInFirebase(userAuth.uid, newEntry);
       return {
         ...state,
-        entries: [...state.entries, newEntry],
+        entries: [...state.entries, payload],
         desc: "",
         amount: 0,
       };

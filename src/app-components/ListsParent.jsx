@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function ListsParent(props) {
+  console.log(props, "props from ListsParent");
   return (
     <ContentWrapper>
       <div className='w-full flex justify-between items-top my-4 m-auto'>

@@ -1,11 +1,63 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useState, useEffect, useRef } from "react";
+import { db } from "../firebase";
+import { useAuthContext } from "../contexts/AuthContext";
+import toast from "react-hot-toast";
+import { initialState } from "../reducer";
 
 function EditingModal({ descToEdit, amountToEdit, dispatch }) {
   const [newDesc, setNewDesc] = useState(descToEdit);
   const [newAmount, setNewAmount] = useState(amountToEdit);
+  const { user } = useAuthContext();
   const modalInput = useRef(null);
+  const entryIdToEdit = initialState.idToEdit;
+
+  async function handleEdit(editedEntry) {
+    // Get a reference to the user's document
+    const userDocRef = doc(db, "users", user.uid);
+
+    // Get the current state of the document
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (userDocSnap.exists()) {
+      // Get the current entries array
+      const entries = userDocSnap.data().entries;
+
+      // Find the index of the entry to update
+      const entryIndex = entries.findIndex(
+        entry => entry.id === editedEntry.id
+      );
+
+      if (entryIndex !== -1) {
+        // Update the entry
+        entries[entryIndex] = editedEntry;
+
+        // Write the updated entries array back to the document
+        await setDoc(userDocRef, { entries }, { merge: true });
+
+        // Dispatch the update action to update local state
+        dispatch({ type: "updateEntry", payload: editedEntry });
+        //   return {
+        //     ...entry,
+        //     desc: payload.newDesc,
+        //     amount: payload.newAmount,
+        //   };
+        // }),
+        // isEditing: false,
+        // idToEdit: null,
+        // descToEdit: "",
+        // amountToEdit: 0,
+        // };
+        toast(`📃 Entry successfully updated`);
+      } else {
+        toast(`📃 No entry found with id: ${editedEntry.id}`);
+      }
+    } else {
+      toast(`📃 No document found for user with id: ${user.uid}`);
+    }
+  }
 
   useEffect(() => {
     modalInput.current.focus();
