@@ -1,4 +1,4 @@
-// import { auth } from "../firebase";
+import { auth } from "../firebase";
 
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
@@ -9,7 +9,7 @@ function ProtectedRoute({ children }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // console.log(user);
+    console.log(user, "from protected route");
     if (!user) navigate("/");
   }, [user, navigate]);
 

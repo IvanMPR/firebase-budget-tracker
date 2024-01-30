@@ -18,7 +18,16 @@ function Home() {
   const { user } = useAuthContext();
 
   const [
-    { entries, type, desc, amount, isEditing, descToEdit, amountToEdit },
+    {
+      entries,
+      type,
+      desc,
+      amount,
+      isEditing,
+      idToEdit,
+      descToEdit,
+      amountToEdit,
+    },
     dispatch,
   ] = useReducer(reducer, initialState);
 
@@ -44,7 +53,7 @@ function Home() {
     getDoc(docRef)
       .then(doc => {
         if (doc.exists()) {
-          console.log("Document data:", doc.data().entries);
+          // console.log("Document data:", doc.data().entries);
           dispatch({ type: "loadEntries", payload: doc.data().entries });
         } else {
           // doc.data() will be undefined in this case
@@ -96,6 +105,7 @@ function Home() {
           isEditing={isEditing}
           descToEdit={descToEdit}
           amountToEdit={amountToEdit}
+          idToEdit={idToEdit}
         />
       </div>
     </section>

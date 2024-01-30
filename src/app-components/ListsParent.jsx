@@ -8,7 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function ListsParent(props) {
-  console.log(props, "props from ListsParent");
   return (
     <ContentWrapper>
       <div className='w-full flex justify-between items-top my-4 m-auto'>
@@ -17,7 +16,7 @@ function ListsParent(props) {
             <FontAwesomeIcon
               icon={faArrowUpRightDots}
               className=' text-green-500'
-            />{" "}
+            />
             Income
           </h2>
           {props.incomeEntries.length === 0 ? (
@@ -36,7 +35,7 @@ function ListsParent(props) {
             <FontAwesomeIcon
               icon={faArrowDownShortWide}
               className=' text-red-500'
-            />{" "}
+            />
             Expense
           </h2>
           {props.expenseEntries.length === 0 ? (
@@ -54,6 +53,7 @@ function ListsParent(props) {
           <EditingModal
             descToEdit={props.descToEdit}
             amountToEdit={props.amountToEdit}
+            idToEdit={props.idToEdit}
             dispatch={props.dispatch}
           />
         )}

@@ -89,7 +89,6 @@ function ListItem(props) {
         <span
           className='btn-delete  text-slate-700 cursor-pointer hover:text-slate-800'
           onClick={() => handleDelete()}
-          // props.dispatch({ type: "deleteEntry", payload: props.entry.id });
         >
           <FontAwesomeIcon
             icon={faTrash}

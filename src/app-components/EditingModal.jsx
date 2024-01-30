@@ -5,16 +5,14 @@ import { useState, useEffect, useRef } from "react";
 import { db } from "../firebase";
 import { useAuthContext } from "../contexts/AuthContext";
 import toast from "react-hot-toast";
-import { initialState } from "../reducer";
 
-function EditingModal({ descToEdit, amountToEdit, dispatch }) {
+function EditingModal({ descToEdit, amountToEdit, idToEdit, dispatch }) {
   const [newDesc, setNewDesc] = useState(descToEdit);
   const [newAmount, setNewAmount] = useState(amountToEdit);
-  const { user } = useAuthContext();
   const modalInput = useRef(null);
-  const entryIdToEdit = initialState.idToEdit;
+  const { user } = useAuthContext();
 
-  async function handleEdit(editedEntry) {
+  async function handleEdit(id) {
     // Get a reference to the user's document
     const userDocRef = doc(db, "users", user.uid);
 
@@ -26,33 +24,25 @@ function EditingModal({ descToEdit, amountToEdit, dispatch }) {
       const entries = userDocSnap.data().entries;
 
       // Find the index of the entry to update
-      const entryIndex = entries.findIndex(
-        entry => entry.id === editedEntry.id
-      );
+      const entryIndex = entries.findIndex(entry => entry.id === id);
 
       if (entryIndex !== -1) {
         // Update the entry
-        entries[entryIndex] = editedEntry;
+        entries[entryIndex] = {
+          ...entries[entryIndex],
+          desc: newDesc,
+          amount: newAmount,
+        };
 
         // Write the updated entries array back to the document
         await setDoc(userDocRef, { entries }, { merge: true });
 
         // Dispatch the update action to update local state
-        dispatch({ type: "updateEntry", payload: editedEntry });
-        //   return {
-        //     ...entry,
-        //     desc: payload.newDesc,
-        //     amount: payload.newAmount,
-        //   };
-        // }),
-        // isEditing: false,
-        // idToEdit: null,
-        // descToEdit: "",
-        // amountToEdit: 0,
-        // };
+        dispatch({ type: "edit", payload: { newDesc, newAmount } });
+
         toast(`📃 Entry successfully updated`);
       } else {
-        toast(`📃 No entry found with id: ${editedEntry.id}`);
+        toast(`📃 No entry found with id: ${id}`);
       }
     } else {
       toast(`📃 No document found for user with id: ${user.uid}`);
@@ -100,7 +90,7 @@ function EditingModal({ descToEdit, amountToEdit, dispatch }) {
           className='block mr-auto mt-10  rounded-full bg-stone-700  font-semibold uppercase tracking-wide text-yellow-400 transition-colors hover:bg-stone-800 active:translate-y-[2px] disabled:cursor-not-allowed disabled:opacity-50 sm:px-6 sm:py-4 px-4 py-2 md:px-5 md:py-2.5 text-xs'
           onClick={e => {
             e.preventDefault();
-            dispatch({ type: "edit", payload: { newDesc, newAmount } });
+            handleEdit(idToEdit);
           }}
         >
           <FontAwesomeIcon icon={faCheck} /> Save Changes

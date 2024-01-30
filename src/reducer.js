@@ -36,6 +36,7 @@ export default function reducer(state, { type, payload }) {
     case "openEditMode":
       // prevent opening editing modal while already editing
       if (state.isEditing) return state;
+
       return {
         ...state,
         isEditing: true,

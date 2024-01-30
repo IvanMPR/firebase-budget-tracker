@@ -30,6 +30,7 @@ function FormInputs({ dispatch, desc, amount, entries, type }) {
         alert("Please fill in all fields");
         return;
       }
+      // update local state
       dispatch({ type: "addEntry", payload: newEntry });
       // Get a reference to the user's document in the database
       const userDoc = doc(db, "users", user.uid);
