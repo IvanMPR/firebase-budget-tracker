@@ -48,6 +48,7 @@ function Home() {
   const percentage = Math.round((expenseFunds / incomeFunds) * 100) || "";
 
   useEffect(() => {
+    if (!user) return;
     const docRef = doc(db, "users", user.uid);
     // const docSnap
     getDoc(docRef)

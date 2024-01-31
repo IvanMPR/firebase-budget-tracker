@@ -3,7 +3,6 @@ import ContentWrapper from "./ContentWrapper";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import Header from "./Header";
 import { Link } from "react-router-dom";
-import SignupForm from "./SignupForm";
 
 function Home() {
   return (
