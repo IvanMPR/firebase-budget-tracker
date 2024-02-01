@@ -9,6 +9,7 @@ import { AuthProvider } from "../src/contexts/AuthContext";
 import { Toaster } from "react-hot-toast";
 import Home from "./components/Home";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import { BudgetTrackerProvider } from "./contexts/BudgetTrackerContext";
 
 function App() {
   return (
@@ -22,7 +23,9 @@ function App() {
             path='budget-tracker'
             element={
               <ProtectedRoute>
-                <BudgetTracker />
+                <BudgetTrackerProvider>
+                  <BudgetTracker />
+                </BudgetTrackerProvider>
               </ProtectedRoute>
             }
           />

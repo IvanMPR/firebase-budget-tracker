@@ -1,13 +1,17 @@
 import List from "./List";
 import EditingModal from "./EditingModal";
 import ContentWrapper from "../components/ContentWrapper";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDownShortWide,
   faArrowUpRightDots,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Spinner from "../components/Spinner";
+import { useBudgetTrackerContext } from "../contexts/BudgetTrackerContext";
 
-function ListsParent(props) {
+function ListsParent() {
+  const { isFetchingEntries, incomeEntries, expenseEntries, isEditing } =
+    useBudgetTrackerContext();
   return (
     <ContentWrapper>
       <div className='w-full flex justify-between items-top my-4 m-auto'>
@@ -19,16 +23,12 @@ function ListsParent(props) {
             />
             Income
           </h2>
-          {props.incomeEntries.length === 0 ? (
+          {isFetchingEntries && <Spinner />}
+          {incomeEntries.length === 0 && !isFetchingEntries && (
             <p>No income entries</p>
-          ) : (
-            <List
-              type='inc-list'
-              entriesType={props.incomeEntries}
-              dispatch={props.dispatch}
-              isEditing={props.isEditing}
-            />
           )}
+
+          <List type='inc-list' entriesType={incomeEntries} />
         </div>
         <div className='w-full mx-2'>
           <h2 className='mb-2 uppercase font-semibold text-stone-700'>
@@ -38,25 +38,14 @@ function ListsParent(props) {
             />
             Expense
           </h2>
-          {props.expenseEntries.length === 0 ? (
+          {isFetchingEntries && <Spinner />}
+          {expenseEntries.length === 0 && !isFetchingEntries && (
             <p>No expense entries</p>
-          ) : (
-            <List
-              type='exp-list'
-              entriesType={props.expenseEntries}
-              dispatch={props.dispatch}
-              isEditing={props.isEditing}
-            />
           )}
+
+          <List type='exp-list' entriesType={expenseEntries} />
         </div>
-        {props.isEditing && (
-          <EditingModal
-            descToEdit={props.descToEdit}
-            amountToEdit={props.amountToEdit}
-            idToEdit={props.idToEdit}
-            dispatch={props.dispatch}
-          />
-        )}
+        {isEditing && <EditingModal />}
       </div>
     </ContentWrapper>
   );

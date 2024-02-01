@@ -4,13 +4,17 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useState, useEffect, useRef } from "react";
 import { db } from "../firebase";
 import { useAuthContext } from "../contexts/AuthContext";
+import { useBudgetTrackerContext } from "../contexts/BudgetTrackerContext";
 import toast from "react-hot-toast";
 
-function EditingModal({ descToEdit, amountToEdit, idToEdit, dispatch }) {
+function EditingModal() {
+  const { user } = useAuthContext();
+  const { descToEdit, amountToEdit, idToEdit, dispatch } =
+    useBudgetTrackerContext();
+
   const [newDesc, setNewDesc] = useState(descToEdit);
   const [newAmount, setNewAmount] = useState(amountToEdit);
   const modalInput = useRef(null);
-  const { user } = useAuthContext();
 
   async function handleEdit(id) {
     // Get a reference to the user's document

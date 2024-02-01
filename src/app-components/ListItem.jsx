@@ -9,13 +9,15 @@ import toast from "react-hot-toast";
 import { useAuthContext } from "../contexts/AuthContext";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { useBudgetTrackerContext } from "../contexts/BudgetTrackerContext";
 
-function ListItem(props) {
+function ListItem({ entry }) {
   const { user } = useAuthContext();
+  const { dispatch, isEditing } = useBudgetTrackerContext();
 
   function handleInfo() {
-    if (props.isEditing) return;
-    toast(`📃 Entry created at ${props.entry.time}`);
+    if (isEditing) return;
+    toast(`📃 Entry created at ${entry.time}`);
   }
 
   async function handleDelete() {
@@ -30,27 +32,25 @@ function ListItem(props) {
       const entries = userDocSnap.data().entries;
 
       // Filter out the entry to delete
-      const updatedEntries = entries.filter(
-        entry => entry.id !== props.entry.id
-      );
+      const updatedEntries = entries.filter(current => current.id !== entry.id);
       // Write the updated entries array back to the document
       await setDoc(userDocRef, { entries: updatedEntries }, { merge: true });
 
       // Dispatch the delete action to update local state
-      props.dispatch({ type: "deleteEntry", payload: props.entry.id });
+      dispatch({ type: "deleteEntry", payload: entry.id });
 
       toast(`📃 Entry successfully deleted`);
     } else {
-      toast(`📃 No document found for user with id: ${props.user.uid}`);
+      toast(`📃 No document found for user with id: ${user.uid}`);
     }
   }
 
   return (
     <li className='py-2 px-4 mb-2 w-full flex justify-between items-center border-y-2 border-slate-700 odd:bg-yellow-400'>
-      {props.entry.desc}
+      {entry.desc}
 
       <div>
-        <span className='item-amount'>{props.entry.amount}</span>
+        <span className='item-amount'>{entry.amount}</span>
       </div>
       <div className='flex items-center justify-center gap-2'>
         <span
@@ -60,7 +60,7 @@ function ListItem(props) {
           <FontAwesomeIcon
             icon={faCircleInfo}
             title={
-              props.isEditing
+              isEditing
                 ? "Can't open more info while editing"
                 : "Click for date/time info"
             }
@@ -69,21 +69,19 @@ function ListItem(props) {
         <span
           className='btn-edit  text-slate-700  hover:text-slate-800 cursor-pointer'
           onClick={() => {
-            props.dispatch({
+            dispatch({
               type: "openEditMode",
               payload: {
-                id: props.entry.id,
-                oldDesc: props.entry.desc,
-                oldVal: props.entry.amount,
+                id: entry.id,
+                oldDesc: entry.desc,
+                oldVal: entry.amount,
               },
             });
           }}
         >
           <FontAwesomeIcon
             icon={faPenToSquare}
-            title={
-              props.isEditing ? "Can't edit while modal is open" : "Edit entry"
-            }
+            title={isEditing ? "Can't edit while modal is open" : "Edit entry"}
           />
         </span>
         <span
@@ -93,7 +91,7 @@ function ListItem(props) {
           <FontAwesomeIcon
             icon={faTrash}
             title={
-              props.isEditing
+              isEditing
                 ? "Can't delete entry while modal is open"
                 : "Delete entry"
             }

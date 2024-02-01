@@ -1,6 +1,10 @@
 import Amount from "./Amount";
+import { useBudgetTrackerContext } from "../contexts/BudgetTrackerContext";
 
-function Amounts({ availableFunds, incomeFunds, expenseFunds, percentage }) {
+function Amounts() {
+  const { availableFunds, incomeFunds, expenseFunds, percentage } =
+    useBudgetTrackerContext();
+
   return (
     <>
       <Amount bgColor='bg-slate-400' ring='ring-3 ring-slate-400 ring-offset-2'>

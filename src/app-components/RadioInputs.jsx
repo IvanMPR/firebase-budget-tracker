@@ -1,7 +1,22 @@
-function RadioInputs({ children }) {
+import { useBudgetTrackerContext } from "../contexts/BudgetTrackerContext";
+
+function RadioInputs() {
+  const { dispatch } = useBudgetTrackerContext();
   return (
     <div className='flex justify-between items-center my-4 mx-auto w-1/4 py-2 px-4'>
-      {children}
+      <label className=' uppercase'>Income</label>
+      <input
+        type='radio'
+        name='inputs'
+        defaultChecked
+        onChange={() => dispatch({ type: "type", payload: "inc" })}
+      />
+      <label className=' uppercase'>Expense</label>
+      <input
+        type='radio'
+        name='inputs'
+        onChange={() => dispatch({ type: "type", payload: "exp" })}
+      />
     </div>
   );
 }

@@ -5,9 +5,11 @@ import { useAuthContext } from "../contexts/AuthContext";
 
 import { db } from "../firebase";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { useBudgetTrackerContext } from "../contexts/BudgetTrackerContext";
 
-function FormInputs({ dispatch, desc, amount, entries, type }) {
+function FormInputs() {
   const { user } = useAuthContext();
+  const { dispatch, desc, amount, entries, type } = useBudgetTrackerContext();
   const descriptionInput = useRef(null);
 
   const handleAddEntry = async () => {
