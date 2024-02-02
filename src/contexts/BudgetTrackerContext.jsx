@@ -46,7 +46,10 @@ function BudgetTrackerProvider({ children }) {
   const availableFunds = incomeFunds - expenseFunds;
 
   const percentage = Math.round((expenseFunds / incomeFunds) * 100) || "";
-
+  // helper function
+  function roundNumber(num) {
+    return Number.isInteger(num) ? num : Number(num.toFixed(2));
+  }
   useEffect(() => {
     if (!user) return;
     setIsFetchingEntries(true);
@@ -86,6 +89,7 @@ function BudgetTrackerProvider({ children }) {
         availableFunds,
         percentage,
         isFetchingEntries,
+        roundNumber,
       }}
     >
       {children}

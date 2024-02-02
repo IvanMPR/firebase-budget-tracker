@@ -14,7 +14,7 @@ function ListsParent() {
     useBudgetTrackerContext();
   return (
     <ContentWrapper>
-      <div className='w-full flex justify-between items-top my-4 m-auto'>
+      <div className='w-full flex justify-between items-top my-4 overflow-y-auto m-auto'>
         <div className='w-full mx-2'>
           <h2 className='uppercase font-semibold mb-2 text-stone-700'>
             <FontAwesomeIcon

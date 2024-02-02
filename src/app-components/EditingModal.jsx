@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 function EditingModal() {
   const { user } = useAuthContext();
-  const { descToEdit, amountToEdit, idToEdit, dispatch } =
+  const { descToEdit, amountToEdit, idToEdit, dispatch, roundNumber } =
     useBudgetTrackerContext();
 
   const [newDesc, setNewDesc] = useState(descToEdit);
@@ -79,14 +79,16 @@ function EditingModal() {
             }}
             ref={modalInput}
             className='mr-2 p-2 border border-slate-700  w-2/3 rounded-md'
+            maxLength={30}
           />
           <input
             type='number'
             value={newAmount}
             onChange={e => {
-              setNewAmount(Number(e.target.value));
+              setNewAmount(roundNumber(Number(e.target.value)));
             }}
             className=' p-2 border border-slate-700 rounded-md'
+            max={1000000000}
           />
         </form>
         <button

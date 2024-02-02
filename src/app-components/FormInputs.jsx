@@ -9,7 +9,8 @@ import { useBudgetTrackerContext } from "../contexts/BudgetTrackerContext";
 
 function FormInputs() {
   const { user } = useAuthContext();
-  const { dispatch, desc, amount, entries, type } = useBudgetTrackerContext();
+  const { dispatch, desc, amount, entries, type, roundNumber } =
+    useBudgetTrackerContext();
   const descriptionInput = useRef(null);
 
   const handleAddEntry = async () => {
@@ -28,8 +29,12 @@ function FormInputs() {
         }),
       };
 
-      if (newEntry.desc === "" || newEntry.amount === 0) {
-        alert("Please fill in all fields");
+      if (newEntry.desc === "") {
+        alert("Please fill in description field");
+        return;
+      }
+      if (newEntry.amount <= 0) {
+        alert("Amount field must not be empty or less than 0");
         return;
       }
       // update local state
@@ -58,15 +63,20 @@ function FormInputs() {
         onChange={e => dispatch({ type: "desc", payload: e.target.value })}
         value={desc}
         ref={descriptionInput}
+        maxLength={30}
       />
       <input
         type='number'
         placeholder='Add amount'
         className='py-2 px-4 mr-4'
         onChange={e =>
-          dispatch({ type: "value", payload: Number(e.target.value) })
+          dispatch({
+            type: "value",
+            payload: roundNumber(Number(e.target.value)),
+          })
         }
         value={amount}
+        max={1000000000}
       />
       <button
         type='submit'
