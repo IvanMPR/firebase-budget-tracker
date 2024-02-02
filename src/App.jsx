@@ -4,13 +4,13 @@ import SignupPage from "./pages/SignupPage";
 import Login from "./pages/Login";
 import BudgetTracker from "./pages/BudgetTracker";
 import PageNotFound from "./pages/PageNotFound";
-
-import { AuthProvider } from "../src/contexts/AuthContext";
-import { Toaster } from "react-hot-toast";
 import Home from "./components/Home";
 import ProtectedRoute from "./pages/ProtectedRoute";
-import { BudgetTrackerProvider } from "./contexts/BudgetTrackerContext";
 
+import { Toaster } from "react-hot-toast";
+
+import { AuthProvider } from "../src/contexts/AuthContext";
+import { BudgetTrackerProvider } from "./contexts/BudgetTrackerContext";
 function App() {
   return (
     <BrowserRouter>
