@@ -1,4 +1,4 @@
-function User() {
+function UserIcon() {
   return (
     <div className=' w-8 h-8 border border-slate-800 rounded-full  flex items-center justify-center'>
       <svg
@@ -13,4 +13,4 @@ function User() {
     </div>
   );
 }
-export default User;
+export default UserIcon;

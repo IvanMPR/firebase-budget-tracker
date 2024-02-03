@@ -15,7 +15,6 @@ function Login() {
   function onUserLogin({ email, password }) {
     loginUser(email, password)
       .then(() => {
-        // console.log(result, "from login");
         navigate("/budget-tracker");
       })
       .catch(error => {
@@ -41,7 +40,6 @@ function Login() {
           className='w-28 rounded-full bg-yellow-100 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:w-64 sm:focus:w-72'
           required
         />
-        {/* {errors.email && <p>Email is required</p>} */}
       </div>
 
       <div>
@@ -54,7 +52,6 @@ function Login() {
           className='w-16 rounded-full bg-yellow-100 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:w-48 sm:focus:w-56'
           required
         />
-        {/* {errors.password && <p>Password is required</p>} */}
       </div>
       <div className='mx-2'>
         <button

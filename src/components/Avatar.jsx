@@ -1,5 +1,5 @@
 import LogoutButton from "./LogoutButton";
-import User from "./User";
+import User from "./UserIcon";
 
 import { useAuthContext } from "../contexts/AuthContext";
 

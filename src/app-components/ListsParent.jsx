@@ -1,6 +1,7 @@
 import List from "./List";
 import EditingModal from "./EditingModal";
 import ContentWrapper from "../components/ContentWrapper";
+import SortOptions from "./SortOptions";
 import {
   faArrowDownShortWide,
   faArrowUpRightDots,
@@ -16,13 +17,21 @@ function ListsParent() {
     <ContentWrapper>
       <div className='w-full flex justify-between items-top my-4 overflow-y-auto m-auto'>
         <div className='w-full mx-2'>
-          <h2 className='uppercase font-semibold mb-2 text-stone-700'>
-            <FontAwesomeIcon
-              icon={faArrowUpRightDots}
-              className=' text-green-500'
-            />
-            Income
-          </h2>
+          {/* add sort component */}
+          <div className='flex items-center justify-between'>
+            <div>
+              <h2 className='uppercase font-semibold mb-2 text-stone-700'>
+                <FontAwesomeIcon
+                  icon={faArrowUpRightDots}
+                  className=' text-green-500'
+                />
+                Income
+              </h2>
+            </div>
+            <div>
+              <SortOptions />
+            </div>
+          </div>
           {isFetchingEntries && <Spinner />}
           {incomeEntries.length === 0 && !isFetchingEntries && (
             <p>No income entries</p>
