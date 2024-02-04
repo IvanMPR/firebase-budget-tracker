@@ -1,7 +1,7 @@
 import List from "./List";
 import EditingModal from "./EditingModal";
 import ContentWrapper from "../components/ContentWrapper";
-import SortOptions from "./SortOptions";
+
 import {
   faArrowDownShortWide,
   faArrowUpRightDots,

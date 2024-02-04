@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUpRightDots } from "@fortawesome/free-solid-svg-icons";
 import SortOptions from "./SortOptions";
 
 function ListHeader({ icon, h2Text }) {
