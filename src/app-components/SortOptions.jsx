@@ -1,10 +1,10 @@
 function SortOptions() {
   return (
-    <div>
+    <div className=' mb-2'>
       <label htmlFor='sortOptions'>Sort by: </label>
       <select id='sortOptions'>
-        <option value='month'>Month</option>
         <option value='date-asc'>Date - Oldest First</option>
+        <option value='month'>Month</option>
         <option value='date-desc'>Date - Newest First</option>
         <option value='amount'>Amount</option>
       </select>

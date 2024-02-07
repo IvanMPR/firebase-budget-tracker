@@ -10,7 +10,7 @@ function ListHeader({ icon, h2Text }) {
         </h2>
       </div>
       <div>
-        <SortOptions />
+        <SortOptions type={h2Text} />
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ function ListsParent() {
                 className=' text-green-500'
               />
             }
-            h2Text=' Income'
+            h2Text=' income'
           />
           {isFetchingEntries && <Spinner />}
           {incomeEntries.length === 0 && !isFetchingEntries && (
@@ -42,7 +42,7 @@ function ListsParent() {
                 className=' text-red-500'
               />
             }
-            h2Text=' Expense'
+            h2Text=' expense'
           />
 
           {isFetchingEntries && <Spinner />}

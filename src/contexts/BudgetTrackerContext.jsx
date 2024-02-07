@@ -16,7 +16,8 @@ const BudgetTrackerContext = createContext();
 function BudgetTrackerProvider({ children }) {
   const { user } = useAuthContext();
   const [isFetchingEntries, setIsFetchingEntries] = useState(false);
-
+  const [sortIncOptions, setSortIncOptions] = useState("date-asc");
+  const [sortExpOptions, setSortExpOptions] = useState("date-asc");
   const [
     {
       entries,
