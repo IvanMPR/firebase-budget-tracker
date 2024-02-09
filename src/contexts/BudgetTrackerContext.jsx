@@ -16,8 +16,8 @@ const BudgetTrackerContext = createContext();
 function BudgetTrackerProvider({ children }) {
   const { user } = useAuthContext();
   const [isFetchingEntries, setIsFetchingEntries] = useState(false);
-  const [sortIncOptions, setSortIncOptions] = useState("date-asc");
-  const [sortExpOptions, setSortExpOptions] = useState("date-asc");
+  const [incSort, setIncSort] = useState("date-asc");
+  const [expSort, setExpSort] = useState("date-asc");
   const [
     {
       entries,
@@ -33,8 +33,11 @@ function BudgetTrackerProvider({ children }) {
   ] = useReducer(reducer, initialState);
 
   // derived state
-  const incomeEntries = entries.filter(entry => entry.type === "inc");
-  const expenseEntries = entries.filter(entry => entry.type === "exp");
+  const incomeEntries = [...entries].filter(entry => entry.type === "inc");
+  const expenseEntries = [...entries].filter(entry => entry.type === "exp");
+
+  const sortedByNewestFirst = [...entries].reverse();
+  const sortedByAmount = [...entries].sort((a, b) => a.amount - b.amount);
 
   const incomeFunds = incomeEntries
     .map(entry => Number(entry.amount))
@@ -91,6 +94,10 @@ function BudgetTrackerProvider({ children }) {
         percentage,
         isFetchingEntries,
         roundNumber,
+        incSort,
+        setIncSort,
+        expSort,
+        setExpSort,
       }}
     >
       {children}
