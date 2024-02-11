@@ -9,6 +9,23 @@ export const initialState = {
   amountToEdit: 0,
 };
 
+function convertToMilliseconds(dateString) {
+  // Split the date and time parts
+  const [datePart, timePart] = dateString.split(", ");
+
+  // Split the date into month, day, and year
+  const [month, day, year] = datePart.split("/");
+
+  // Convert the year to 4 digits
+  const fullYear = "20" + year;
+
+  // Combine the date and time parts into a new date string
+  const newDateString = `${month}/${day}/${fullYear}, ${timePart}`;
+
+  // Parse the new date string and return the result
+  return Date.parse(newDateString);
+}
+
 export default function reducer(state, { type, payload }) {
   switch (type) {
     case "type":
@@ -74,6 +91,44 @@ export default function reducer(state, { type, payload }) {
         descToEdit: "",
         amountToEdit: 0,
       };
+    case "sortOption":
+      const { type, sort, month } = payload;
+      console.log(type, sort, month, "reducer");
+      if (type === " income") {
+        if (sort === "date-asc") {
+          return {
+            ...state,
+            entries: state.entries.sort(
+              (a, b) =>
+                convertToMilliseconds(a.time) - convertToMilliseconds(b.time)
+            ),
+          };
+        }
+        if (sort === "date-desc") {
+          return {
+            ...state,
+            entries: state.entries.sort(
+              (a, b) =>
+                convertToMilliseconds(b.time) - convertToMilliseconds(a.time)
+            ),
+          };
+        }
+        if (sort === "amount-h") {
+          return {
+            ...state,
+            entries: state.entries.sort((a, b) => b.amount - a.amount),
+          };
+        }
+        if (sort === "amount-l") {
+          return {
+            ...state,
+            entries: state.entries.sort((a, b) => a.amount - b.amount),
+          };
+        }
+      }
+      // console.log(payload.type, "reducer");
+      return state;
+
     default:
       throw new Error("Invalid action type");
   }

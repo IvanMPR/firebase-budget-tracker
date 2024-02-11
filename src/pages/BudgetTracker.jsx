@@ -15,6 +15,7 @@ function BudgetTracker() {
       window.removeEventListener("beforeunload", logOut);
     };
   }, [logOut]);
+
   return (
     <section>
       <Header />

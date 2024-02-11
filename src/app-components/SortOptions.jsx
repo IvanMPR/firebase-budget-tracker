@@ -1,13 +1,45 @@
+import { useState } from "react";
 import { useBudgetTrackerContext } from "../contexts/BudgetTrackerContext";
 
-function SortOptions({ type }) {
-  const { incSort, setIncSort, expSort, setExpSort } =
-    useBudgetTrackerContext();
+function SortOptions({ listType }) {
+  const [incSort, setIncSort] = useState("date-asc");
+  const [expSort, setExpSort] = useState("date-asc");
+
+  const [incMonth, setIncMonth] = useState("");
+  const [expMonth, setExpMonth] = useState("");
+
+  const { dispatch } = useBudgetTrackerContext();
 
   function handleSortChange(e) {
-    return type === " income"
-      ? setIncSort(e.target.value)
-      : setExpSort(e.target.value);
+    if (listType === " income") {
+      setIncSort(e.target.value);
+      dispatch({
+        type: "sortOption",
+        payload: { type: listType, sort: e.target.value, month: incMonth },
+      });
+    } else {
+      setExpSort(e.target.value);
+      dispatch({
+        type: "sortOption",
+        payload: { type: listType, sort: e.target.value, month: expMonth },
+      });
+    }
+  }
+
+  function handleMonthChange(e) {
+    if (listType === " income") {
+      setIncMonth(e.target.value);
+      dispatch({
+        type: "sortOption",
+        payload: { type: listType, sort: incSort, month: e.target.value },
+      });
+    } else {
+      setExpMonth(e.target.value);
+      dispatch({
+        type: "sortOption",
+        payload: { type: listType, sort: expSort, month: e.target.value },
+      });
+    }
   }
   return (
     <div className=' mb-2 flex'>
@@ -15,7 +47,7 @@ function SortOptions({ type }) {
         <label htmlFor='sortOptions'>Sort entries: </label>
         <select
           id='sortOptions'
-          value={type === " income" ? incSort : expSort}
+          value={listType === " income" ? incSort : expSort}
           onChange={handleSortChange}
         >
           <option value='date-asc'>Oldest First</option>
@@ -29,8 +61,8 @@ function SortOptions({ type }) {
         <label htmlFor='month'>&nbsp;</label>
         <select
           id='monthSorting'
-          // value={type === " income" ? incSort : expSort}
-          // onChange={handleSortChange}
+          value={listType === " income" ? incMonth : expMonth}
+          onChange={handleMonthChange}
         >
           <option value=''>Choose by month</option>
           <option value='01'>January</option>
