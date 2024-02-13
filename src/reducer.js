@@ -1,5 +1,8 @@
+import { convertToMilliseconds } from "./utils";
+
 export const initialState = {
   entries: [],
+  filteredEntries: [],
   type: "inc",
   desc: "",
   amount: 0,
@@ -8,23 +11,6 @@ export const initialState = {
   descToEdit: "",
   amountToEdit: 0,
 };
-
-function convertToMilliseconds(dateString) {
-  // Split the date and time parts
-  const [datePart, timePart] = dateString.split(", ");
-
-  // Split the date into month, day, and year
-  const [month, day, year] = datePart.split("/");
-
-  // Convert the year to 4 digits
-  const fullYear = "20" + year;
-
-  // Combine the date and time parts into a new date string
-  const newDateString = `${month}/${day}/${fullYear}, ${timePart}`;
-
-  // Parse the new date string and return the result
-  return Date.parse(newDateString);
-}
 
 export default function reducer(state, { type, payload }) {
   switch (type) {
@@ -35,11 +21,12 @@ export default function reducer(state, { type, payload }) {
     case "value":
       return { ...state, amount: payload };
     case "loadEntries":
-      return { ...state, entries: payload };
+      return { ...state, entries: payload, filteredEntries: payload };
     case "addEntry":
       return {
         ...state,
         entries: [...state.entries, payload],
+        filteredEntries: [...state.filteredEntries, payload],
         desc: "",
         amount: 0,
       };
@@ -49,6 +36,9 @@ export default function reducer(state, { type, payload }) {
       return {
         ...state,
         entries: state.entries.filter(entry => entry.id !== payload),
+        filteredEntries: state.filteredEntries.filter(
+          entry => entry.id !== payload
+        ),
       };
     case "openEditMode":
       // prevent opening editing modal while already editing
@@ -78,6 +68,15 @@ export default function reducer(state, { type, payload }) {
             amount: payload.newAmount,
           };
         }),
+        filteredEntries: state.filteredEntries.map(entry => {
+          if (entry.id !== state.idToEdit) return entry;
+
+          return {
+            ...entry,
+            desc: payload.newDesc,
+            amount: payload.newAmount,
+          };
+        }),
         isEditing: false,
         idToEdit: null,
         descToEdit: "",
@@ -92,43 +91,63 @@ export default function reducer(state, { type, payload }) {
         amountToEdit: 0,
       };
     case "sortOption":
-      const { type, sort, month } = payload;
-      console.log(type, sort, month, "reducer");
-      if (type === " income") {
-        if (sort === "date-asc") {
-          return {
-            ...state,
-            entries: state.entries.sort(
-              (a, b) =>
-                convertToMilliseconds(a.time) - convertToMilliseconds(b.time)
-            ),
-          };
-        }
-        if (sort === "date-desc") {
-          return {
-            ...state,
-            entries: state.entries.sort(
-              (a, b) =>
-                convertToMilliseconds(b.time) - convertToMilliseconds(a.time)
-            ),
-          };
-        }
-        if (sort === "amount-h") {
-          return {
-            ...state,
-            entries: state.entries.sort((a, b) => b.amount - a.amount),
-          };
-        }
-        if (sort === "amount-l") {
-          return {
-            ...state,
-            entries: state.entries.sort((a, b) => a.amount - b.amount),
-          };
-        }
+      if (payload === "date-asc") {
+        return {
+          ...state,
+          entries: state.entries.sort(
+            (a, b) =>
+              convertToMilliseconds(a.time) - convertToMilliseconds(b.time)
+          ),
+          filteredEntries: state.filteredEntries.sort(
+            (a, b) =>
+              convertToMilliseconds(a.time) - convertToMilliseconds(b.time)
+          ),
+        };
       }
-      // console.log(payload.type, "reducer");
+      if (payload === "date-desc") {
+        return {
+          ...state,
+          entries: state.entries.sort(
+            (a, b) =>
+              convertToMilliseconds(b.time) - convertToMilliseconds(a.time)
+          ),
+          filteredEntries: state.filteredEntries.sort(
+            (a, b) =>
+              convertToMilliseconds(b.time) - convertToMilliseconds(a.time)
+          ),
+        };
+      }
+      if (payload === "amount-h") {
+        return {
+          ...state,
+          entries: state.entries.sort((a, b) => b.amount - a.amount),
+          filteredEntries: state.filteredEntries.sort(
+            (a, b) => b.amount - a.amount
+          ),
+        };
+      }
+      if (payload === "amount-l") {
+        return {
+          ...state,
+          entries: state.entries.sort((a, b) => a.amount - b.amount),
+          filteredEntries: state.filteredEntries.sort(
+            (a, b) => a.amount - b.amount
+          ),
+        };
+      }
+
       return state;
 
+    case "monthSort":
+      if (payload === "")
+        return { ...state, filteredEntries: [...state.entries] };
+
+      return {
+        ...state,
+        filteredEntries: state.entries.filter(entry => {
+          return entry.time.slice(0, 2) === payload;
+        }),
+      };
     default:
       throw new Error("Invalid action type");
   }
