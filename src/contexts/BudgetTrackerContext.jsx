@@ -10,6 +10,7 @@ import reducer from "../reducer";
 import { db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useAuthContext } from "./AuthContext";
+import { roundNumber } from "../utils";
 
 const BudgetTrackerContext = createContext();
 
@@ -20,6 +21,7 @@ function BudgetTrackerProvider({ children }) {
   const [
     {
       entries,
+      filteredEntries,
       type,
       desc,
       amount,
@@ -32,8 +34,12 @@ function BudgetTrackerProvider({ children }) {
   ] = useReducer(reducer, initialState);
 
   // derived state
-  const incomeEntries = [...entries].filter(entry => entry.type === "inc");
-  const expenseEntries = [...entries].filter(entry => entry.type === "exp");
+  const incomeEntries = [...filteredEntries].filter(
+    entry => entry.type === "inc"
+  );
+  const expenseEntries = [...filteredEntries].filter(
+    entry => entry.type === "exp"
+  );
 
   const incomeFunds = incomeEntries
     .map(entry => Number(entry.amount))
@@ -46,10 +52,7 @@ function BudgetTrackerProvider({ children }) {
   const availableFunds = incomeFunds - expenseFunds;
 
   const percentage = Math.round((expenseFunds / incomeFunds) * 100) || "";
-  // helper function
-  function roundNumber(num) {
-    return Number.isInteger(num) ? num : Number(num.toFixed(2));
-  }
+
   useEffect(() => {
     if (!user) return;
     setIsFetchingEntries(true);
