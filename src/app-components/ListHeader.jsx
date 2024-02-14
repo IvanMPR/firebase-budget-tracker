@@ -9,7 +9,6 @@ function ListHeader({ icon, h2Text }) {
           {h2Text}
         </h2>
       </div>
-      {/* <div><SortOptions listType={h2Text} /></div> */}
     </div>
   );
 }
