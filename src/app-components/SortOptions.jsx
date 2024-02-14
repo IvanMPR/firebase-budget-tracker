@@ -3,7 +3,6 @@ import { useBudgetTrackerContext } from "../contexts/BudgetTrackerContext";
 
 function SortOptions() {
   const [sort, setSort] = useState("date-asc");
-
   const [month, setMonth] = useState("");
 
   const { dispatch } = useBudgetTrackerContext();
