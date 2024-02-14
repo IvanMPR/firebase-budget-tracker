@@ -17,7 +17,7 @@ function ListsParent() {
     useBudgetTrackerContext();
   return (
     <ContentWrapper>
-      <div className='w-full flex flex-col overflow-y-auto m-auto'>
+      <div className='w-full flex flex-col m-auto'>
         <div className=' mb-2'>
           <SortOptions listType=' income' />
         </div>
