@@ -1,6 +1,7 @@
 import Amount from "./Amount";
 import SmallSpinner from "../components/SmallSpinner";
 import { useBudgetTrackerContext } from "../contexts/BudgetTrackerContext";
+import { CURRENCY_SYMBOL, roundNumber } from "../utils";
 
 function Amounts() {
   const {
@@ -9,35 +10,66 @@ function Amounts() {
     expenseFunds,
     percentage,
     isFetchingEntries,
-    roundNumber,
   } = useBudgetTrackerContext();
 
   return (
-    <>
-      <Amount bgColor='bg-slate-400' ring='ring-3 ring-slate-400 ring-offset-2'>
-        <span className='block text-yellow-400'>Available funds: </span>
-        <h3 className='font-bold text-yellow-400'>
-          {isFetchingEntries ? <SmallSpinner /> : roundNumber(availableFunds)}
-        </h3>
-      </Amount>
-      <Amount bgColor='bg-stone-700' ring='ring-3 ring-green-400 ring-offset-2'>
-        <span className='block text-yellow-400'>Income: </span>
-        <h3 className='font-bold text-yellow-400'>
-          {isFetchingEntries ? <SmallSpinner /> : roundNumber(incomeFunds)}
-        </h3>
-      </Amount>
-      <Amount bgColor='bg-red-400' ring='ring-3 ring-red-400 ring-offset-2'>
-        <span className='block text-yellow-400'>Expense: </span>
-        <h3 className='font-bold text-yellow-400'>
-          {isFetchingEntries ? <SmallSpinner /> : roundNumber(expenseFunds)}
-        </h3>
-      </Amount>
-      <span className='block text-stone-700 font-bold text-xl'>
+    <div>
+      <div>
+        <Amount
+          bgColor='bg-stone-700'
+          ring='ring-3 ring-slate-400 ring-offset-2'
+        >
+          <span className='block text-yellow-400 '>Available funds: </span>
+          <h3 className='font-bold text-yellow-400 text-xl'>
+            {isFetchingEntries ? (
+              <SmallSpinner />
+            ) : (
+              `${CURRENCY_SYMBOL} ${roundNumber(availableFunds)}`
+            )}
+          </h3>
+        </Amount>
+      </div>
+      <div className=' flex w-full'>
+        <div className=' mr-4'>
+          <Amount
+            bgColor='bg-green-200'
+            ring='ring-3 ring-green-400 ring-offset-2'
+          >
+            <span className='block text-slate-700'>Income: </span>
+            <h3 className='font-bold text-slate-700 text-xl'>
+              {isFetchingEntries ? (
+                <SmallSpinner />
+              ) : (
+                `${CURRENCY_SYMBOL} ${roundNumber(incomeFunds)}`
+              )}
+            </h3>
+          </Amount>
+        </div>
+        <div className=' ml-4'>
+          <Amount
+            bgColor='bg-rose-200'
+            ring='ring-3 ring-red-400 ring-offset-2'
+          >
+            <span className='block text-slate-700'>Expense: </span>
+            <h3 className='font-bold text-slate-700 text-xl'>
+              {isFetchingEntries ? (
+                <SmallSpinner />
+              ) : (
+                `${CURRENCY_SYMBOL} ${roundNumber(expenseFunds)}`
+              )}
+            </h3>
+          </Amount>
+        </div>
+      </div>
+      <span
+        className=' w-12 h-12 m-auto bg-stone-700 text-yellow-400 text-xl p-2 rounded-full flex items-center justify-center'
+        title='Expense / Income ratio'
+      >
         {isFetchingEntries && <SmallSpinner />}
-        {isFetchingEntries ||
-          `Expenses are ${expenseFunds === 0 ? 0 : percentage}% of income`}
+        {isFetchingEntries || `${expenseFunds === 0 ? 0 : percentage}%`}
+        {/* `Expenses are ${expenseFunds === 0 ? 0 : percentage}% of income` */}
       </span>
-    </>
+    </div>
   );
 }
 export default Amounts;
