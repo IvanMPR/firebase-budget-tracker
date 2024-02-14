@@ -144,9 +144,9 @@ export default function reducer(state, { type, payload }) {
 
       return {
         ...state,
-        filteredEntries: state.entries.filter(entry => {
-          return entry.time.slice(0, 2) === payload;
-        }),
+        filteredEntries: state.entries.filter(
+          entry => entry.time.slice(0, 2) === payload
+        ),
       };
     default:
       throw new Error("Invalid action type");
