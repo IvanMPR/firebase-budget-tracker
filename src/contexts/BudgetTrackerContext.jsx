@@ -10,7 +10,6 @@ import reducer from "../reducer";
 import { db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useAuthContext } from "./AuthContext";
-import { roundNumber } from "../utils";
 
 const BudgetTrackerContext = createContext();
 
@@ -92,7 +91,6 @@ function BudgetTrackerProvider({ children }) {
         availableFunds,
         percentage,
         isFetchingEntries,
-        roundNumber,
       }}
     >
       {children}
