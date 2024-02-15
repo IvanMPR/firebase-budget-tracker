@@ -62,12 +62,12 @@ function Amounts() {
         </div>
       </div>
       <span
-        className=' w-12 h-12 m-auto bg-stone-700 text-yellow-400 text-xl p-2 rounded-full flex items-center justify-center'
+        className=' m-auto mt-1 bg-stone-700 text-yellow-400 text-l p-2 w-1/2 flex items-center justify-center'
         title='Expense / Income ratio'
       >
         {isFetchingEntries && <SmallSpinner />}
-        {isFetchingEntries || `${expenseFunds === 0 ? 0 : percentage}%`}
-        {/* `Expenses are ${expenseFunds === 0 ? 0 : percentage}% of income` */}
+        {isFetchingEntries ||
+          `Expense / Income ratio is ${expenseFunds === 0 ? 0 : percentage} %`}
       </span>
     </div>
   );
