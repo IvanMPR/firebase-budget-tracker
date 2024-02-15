@@ -13,10 +13,9 @@ import { useBudgetTrackerContext } from "../contexts/BudgetTrackerContext";
 
 function ListItem({ entry }) {
   const { user } = useAuthContext();
-  const { dispatch, isEditing } = useBudgetTrackerContext();
+  const { dispatch } = useBudgetTrackerContext();
 
   function handleInfo() {
-    if (isEditing) return;
     toast(`📃 Entry created at ${entry.time}`);
   }
 
@@ -59,11 +58,7 @@ function ListItem({ entry }) {
         >
           <FontAwesomeIcon
             icon={faCircleInfo}
-            title={
-              isEditing
-                ? "Can't open more info while editing"
-                : "Click for date/time info"
-            }
+            title='Click for date/time info'
           />
         </span>
         <span
@@ -79,23 +74,13 @@ function ListItem({ entry }) {
             });
           }}
         >
-          <FontAwesomeIcon
-            icon={faPenToSquare}
-            title={isEditing ? "Can't edit while modal is open" : "Edit entry"}
-          />
+          <FontAwesomeIcon icon={faPenToSquare} title='Edit entry' />
         </span>
         <span
           className='btn-delete  text-slate-700 cursor-pointer hover:text-slate-800'
           onClick={() => handleDelete()}
         >
-          <FontAwesomeIcon
-            icon={faTrash}
-            title={
-              isEditing
-                ? "Can't delete entry while modal is open"
-                : "Delete entry"
-            }
-          />
+          <FontAwesomeIcon icon={faTrash} title='Delete entry' />
         </span>
       </div>
     </li>
