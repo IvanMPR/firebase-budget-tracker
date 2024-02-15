@@ -7,6 +7,8 @@ import { db } from "../firebase";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { useBudgetTrackerContext } from "../contexts/BudgetTrackerContext";
 import { roundNumber } from "../utils";
+import toast from "react-hot-toast";
+
 function FormInputs() {
   const { user } = useAuthContext();
   const { dispatch, desc, amount, entries, type } = useBudgetTrackerContext();
@@ -45,7 +47,7 @@ function FormInputs() {
         entries: arrayUnion(newEntry),
       });
     } catch (error) {
-      console.log(error.message, "Error adding entry to array");
+      toast.error("Error adding entry to the database");
     }
   };
 
