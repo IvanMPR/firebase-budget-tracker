@@ -20,8 +20,3 @@ export function convertToMilliseconds(dateString) {
 export function roundNumber(num) {
   return Number.isInteger(num) ? num : Number(num.toFixed(2));
 }
-
-export function validateEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
