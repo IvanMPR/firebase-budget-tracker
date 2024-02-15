@@ -56,7 +56,7 @@ function BudgetTrackerProvider({ children }) {
     if (!user) return;
     setIsFetchingEntries(true);
     const docRef = doc(db, "users", user.uid);
-    // const docSnap
+
     getDoc(docRef)
       .then(doc => {
         if (doc.exists()) {
@@ -64,7 +64,6 @@ function BudgetTrackerProvider({ children }) {
           setIsFetchingEntries(false);
         } else {
           // doc.data() will be undefined in this case
-          console.log("No such document!");
           dispatch({ type: "loadEntries", payload: [] });
           setIsFetchingEntries(false);
         }
