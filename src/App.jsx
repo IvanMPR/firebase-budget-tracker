@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import SignupPage from "./pages/SignupPage";
-import Login from "./pages/Login";
 import BudgetTracker from "./pages/BudgetTracker";
 import PageNotFound from "./pages/PageNotFound";
 import Home from "./components/Home";
@@ -17,7 +16,6 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='login' element={<Login />} />
           <Route path='signup' element={<SignupPage />} />
           <Route
             path='budget-tracker'
