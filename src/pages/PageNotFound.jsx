@@ -7,7 +7,7 @@ function PageNotFound() {
   return (
     <div>
       <Header />
-      <div className='flex items-center justify-center h-screen'>
+      <div className='flex items-top justify-center h-screen mt-20'>
         <h2 className='text-4xl text-stone-700 font-bold'>Page Not Found</h2>
         <Link to='/'>
           <button className='inline-block ml-4  rounded-full bg-stone-700  font-semibold uppercase tracking-wide text-yellow-400 transition-colors hover:bg-stone-800 active:translate-y-[2px] disabled:cursor-not-allowed disabled:opacity-50 sm:px-6 sm:py-4 px-4 py-2 md:px-5 md:py-2.5 text-xs'>
