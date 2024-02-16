@@ -67,7 +67,9 @@ function Amounts() {
       >
         {isFetchingEntries && <SmallSpinner />}
         {isFetchingEntries ||
-          `Expense / Income ratio is ${expenseFunds === 0 ? 0 : percentage} %`}
+          `Your expenses are ${
+            expenseFunds === 0 ? 0 : percentage
+          } % of your income.`}
       </span>
     </div>
   );
