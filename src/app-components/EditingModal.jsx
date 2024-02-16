@@ -5,15 +5,18 @@ import { useState, useEffect, useRef } from "react";
 import { db } from "../firebase";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useBudgetTrackerContext } from "../contexts/BudgetTrackerContext";
+
 import toast from "react-hot-toast";
+import { roundNumber } from "../utils";
 
 function EditingModal() {
   const { user } = useAuthContext();
-  const { descToEdit, amountToEdit, idToEdit, dispatch, roundNumber } =
+  const { descToEdit, amountToEdit, idToEdit, dispatch } =
     useBudgetTrackerContext();
 
   const [newDesc, setNewDesc] = useState(descToEdit);
   const [newAmount, setNewAmount] = useState(amountToEdit);
+
   const modalInput = useRef(null);
 
   async function handleEdit(id) {
