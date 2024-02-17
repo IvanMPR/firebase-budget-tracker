@@ -1,5 +1,3 @@
-// import SortOptions from "./SortOptions";
-
 function ListHeader({ icon, h2Text }) {
   return (
     <div className='flex items-center justify-between'>
