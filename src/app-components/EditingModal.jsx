@@ -20,39 +20,42 @@ function EditingModal() {
   const modalInput = useRef(null);
 
   async function handleEdit(id) {
-    // Get a reference to the user's document
-    const userDocRef = doc(db, "users", user.uid);
+    try {
+      // Get a reference to the user's document
+      const userDocRef = doc(db, "users", user.uid);
 
-    // Get the current state of the document
-    const userDocSnap = await getDoc(userDocRef);
+      // Get the current state of the document
+      const userDocSnap = await getDoc(userDocRef);
 
-    if (userDocSnap.exists()) {
-      // Get the current entries array
-      const entries = userDocSnap.data().entries;
+      if (userDocSnap.exists()) {
+        // Get the current entries array
+        const entries = userDocSnap.data().entries;
 
-      // Find the index of the entry to update
-      const entryIndex = entries.findIndex(entry => entry.id === id);
+        // Find the index of the entry to update
+        const entryIndex = entries.findIndex(entry => entry.id === id);
 
-      if (entryIndex !== -1) {
-        // Update the entry
-        entries[entryIndex] = {
-          ...entries[entryIndex],
-          desc: newDesc,
-          amount: newAmount,
-        };
+        if (entryIndex !== -1) {
+          // Update the entry
+          entries[entryIndex] = {
+            ...entries[entryIndex],
+            desc: newDesc,
+            amount: newAmount,
+          };
 
-        // Write the updated entries array back to the document
-        await setDoc(userDocRef, { entries }, { merge: true });
+          // Write the updated entries array back to the document
+          await setDoc(userDocRef, { entries }, { merge: true });
 
-        // Dispatch the update action to update local state
-        dispatch({ type: "edit", payload: { newDesc, newAmount } });
-
-        toast(`📃 Entry successfully updated`);
+          // Dispatch the update action to update local state
+          dispatch({ type: "edit", payload: { newDesc, newAmount } });
+          toast(`📃 Entry successfully updated`);
+        } else {
+          toast(`📃 No entry found with id: ${id}`);
+        }
       } else {
-        toast(`📃 No entry found with id: ${id}`);
+        toast(`📃 No document found for user with id: ${user.uid}`);
       }
-    } else {
-      toast(`📃 No document found for user with id: ${user.uid}`);
+    } catch (error) {
+      toast.error(`📃 ${error.message}`);
     }
   }
 
