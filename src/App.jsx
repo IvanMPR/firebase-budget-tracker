@@ -40,7 +40,7 @@ function App() {
             duration: 3000,
           },
           error: {
-            duration: 3500,
+            duration: 3000,
           },
           style: {
             fontSize: "16px",
