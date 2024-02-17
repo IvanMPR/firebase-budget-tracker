@@ -20,27 +20,34 @@ function ListItem({ entry }) {
   }
 
   async function handleDelete() {
-    // Get a reference to the user's document
-    const userDocRef = doc(db, "users", user.uid);
+    try {
+      // Get a reference to the user's document
+      const userDocRef = doc(db, "users", user.uid);
 
-    // Get the current state of the document
-    const userDocSnap = await getDoc(userDocRef);
+      // Get the current state of the document
+      const userDocSnap = await getDoc(userDocRef);
 
-    if (userDocSnap.exists()) {
-      // Get the current entries array
-      const entries = userDocSnap.data().entries;
+      if (userDocSnap.exists()) {
+        // Get the current entries array
+        const entries = userDocSnap.data().entries;
 
-      // Filter out the entry to delete
-      const updatedEntries = entries.filter(current => current.id !== entry.id);
-      // Write the updated entries array back to the document
-      await setDoc(userDocRef, { entries: updatedEntries }, { merge: true });
+        // Filter out the entry to delete
+        const updatedEntries = entries.filter(
+          current => current.id !== entry.id
+        );
+        // Write the updated entries array back to the document
+        await setDoc(userDocRef, { entries: updatedEntries }, { merge: true });
 
-      // Dispatch the delete action to update local state
-      dispatch({ type: "deleteEntry", payload: entry.id });
+        // Dispatch the delete action to update local state
+        dispatch({ type: "deleteEntry", payload: entry.id });
 
-      toast(`📃 Entry successfully deleted`);
-    } else {
-      toast(`📃 No document found for user with id: ${user.uid}`);
+        toast(`📃 Entry successfully deleted`);
+      } else {
+        const username = user.email.split("@")[0];
+        toast(`📃 No document found for user: ${username}`);
+      }
+    } catch (error) {
+      toast.error(`📃 ${error.message}`);
     }
   }
 
