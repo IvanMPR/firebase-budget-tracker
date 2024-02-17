@@ -31,13 +31,11 @@ function SignupForm() {
         toast.success("Account created successfully ! Please login. ");
       })
       .catch(error => {
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
         if (error.code === "auth/email-already-in-use") {
-          toast.error("Email already in use. Please login. ");
+          toast.error("📃 Email already in use. Please login. ");
           setIsLoading(false);
         } else {
-          toast.error(error.code);
+          toast.error(`📃 ${error.code}`);
           setIsLoading(false);
         }
       });
