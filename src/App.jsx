@@ -12,7 +12,7 @@ import { AuthProvider } from "../src/contexts/AuthContext";
 import { BudgetTrackerProvider } from "./contexts/BudgetTrackerContext";
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/firebase-budget-tracker/'>
       <AuthProvider>
         <Routes>
           <Route path='/' element={<Home />} />
