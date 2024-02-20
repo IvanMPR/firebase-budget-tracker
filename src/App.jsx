@@ -1,11 +1,6 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-// import SignupPage from "./pages/SignupPage";
-// import AppLayout from "./pages/AppLayout";
-// import PageNotFound from "./pages/PageNotFound";
-// import Home from "./components/Home";
-// import ProtectedRoute from "./pages/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "../src/contexts/AuthContext";
 import { BudgetTrackerProvider } from "./contexts/BudgetTrackerContext";
