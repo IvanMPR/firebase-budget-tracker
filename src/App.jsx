@@ -1,34 +1,43 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import SignupPage from "./pages/SignupPage";
-import BudgetTracker from "./pages/BudgetTracker";
-import PageNotFound from "./pages/PageNotFound";
-import Home from "./components/Home";
-import ProtectedRoute from "./pages/ProtectedRoute";
-
+// import SignupPage from "./pages/SignupPage";
+// import AppLayout from "./pages/AppLayout";
+// import PageNotFound from "./pages/PageNotFound";
+// import Home from "./components/Home";
+// import ProtectedRoute from "./pages/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
-
 import { AuthProvider } from "../src/contexts/AuthContext";
 import { BudgetTrackerProvider } from "./contexts/BudgetTrackerContext";
+import Loader from "./components/Loader";
+
+const SignupPage = lazy(() => import("./pages/SignupPage"));
+const AppLayout = lazy(() => import("./pages/AppLayout"));
+const PageNotFound = lazy(() => import("./pages/PageNotFound"));
+const Home = lazy(() => import("./components/Home"));
+const ProtectedRoute = lazy(() => import("./pages/ProtectedRoute"));
+
 function App() {
   return (
     <BrowserRouter basename='/firebase-budget-tracker/'>
       <AuthProvider>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='signup' element={<SignupPage />} />
-          <Route
-            path='budget-tracker'
-            element={
-              <ProtectedRoute>
-                <BudgetTrackerProvider>
-                  <BudgetTracker />
-                </BudgetTrackerProvider>
-              </ProtectedRoute>
-            }
-          />
-          <Route path='*' element={<PageNotFound />} />
-        </Routes>
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='signup' element={<SignupPage />} />
+            <Route
+              path='budget-tracker'
+              element={
+                <ProtectedRoute>
+                  <BudgetTrackerProvider>
+                    <AppLayout />
+                  </BudgetTrackerProvider>
+                </ProtectedRoute>
+              }
+            />
+            <Route path='*' element={<PageNotFound />} />
+          </Routes>
+        </Suspense>
       </AuthProvider>
       <Toaster
         position='bottom-center'
