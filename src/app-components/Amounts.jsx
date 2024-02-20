@@ -5,25 +5,12 @@ import { CURRENCY_SYMBOL, roundNumber } from "../utils";
 
 function Amounts() {
   const {
-    // availableFunds,
-    // incomeFunds,
-    // expenseFunds,
-    // percentage,
-    incomeEntries,
-    expenseEntries,
+    availableFunds,
+    incomeFunds,
+    expenseFunds,
+    percentage,
     isFetchingEntries,
   } = useBudgetTrackerContext();
-  const incomeFunds = incomeEntries
-    .map(entry => Number(entry.amount))
-    .reduce((acc, curr) => acc + curr, 0);
-
-  const expenseFunds = expenseEntries
-    .map(entry => Number(entry.amount))
-    .reduce((acc, curr) => acc + curr, 0);
-
-  const availableFunds = incomeFunds - expenseFunds;
-
-  const percentage = Math.round((expenseFunds / incomeFunds) * 100) || "";
 
   return (
     <div>

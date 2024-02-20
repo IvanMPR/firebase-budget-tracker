@@ -40,17 +40,17 @@ function BudgetTrackerProvider({ children }) {
     entry => entry.type === "exp"
   );
 
-  // const incomeFunds = incomeEntries
-  //   .map(entry => Number(entry.amount))
-  //   .reduce((acc, curr) => acc + curr, 0);
+  const incomeFunds = incomeEntries
+    .map(entry => Number(entry.amount))
+    .reduce((acc, curr) => acc + curr, 0);
 
-  // const expenseFunds = expenseEntries
-  //   .map(entry => Number(entry.amount))
-  //   .reduce((acc, curr) => acc + curr, 0);
+  const expenseFunds = expenseEntries
+    .map(entry => Number(entry.amount))
+    .reduce((acc, curr) => acc + curr, 0);
 
-  // const availableFunds = incomeFunds - expenseFunds;
+  const availableFunds = incomeFunds - expenseFunds;
 
-  // const percentage = Math.round((expenseFunds / incomeFunds) * 100) || "";
+  const percentage = Math.round((expenseFunds / incomeFunds) * 100) || "";
 
   useEffect(() => {
     if (!user) return;
@@ -85,10 +85,10 @@ function BudgetTrackerProvider({ children }) {
         dispatch,
         incomeEntries,
         expenseEntries,
-        // incomeFunds,
-        // expenseFunds,
-        // availableFunds,
-        // percentage,
+        incomeFunds,
+        expenseFunds,
+        availableFunds,
+        percentage,
         isFetchingEntries,
       }}
     >
