@@ -52,7 +52,7 @@ function ListItem({ entry }) {
   }
 
   return (
-    <li className='py-2 px-4 mb-2 w-full flex justify-between items-center border-y-2 border-slate-700 odd:bg-yellow-200 even:bg-stone-300'>
+    <li className='py-2 px-4 mb-2 w-full flex justify-between items-center border-y-2 border-slate-700 odd:bg-stone-200  even:bg-sky-100'>
       <span className=' w-52 block'>{entry.desc}</span>
 
       <div>
