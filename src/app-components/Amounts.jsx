@@ -16,11 +16,13 @@ function Amounts() {
     <div>
       <div>
         <Amount
-          bgColor='bg-stone-700'
+          // bgColor='bg-stone-700'
           ring='ring-3 ring-slate-400 ring-offset-2'
         >
-          <span className='block text-yellow-400 '>Available funds: </span>
-          <h3 className='font-bold text-yellow-400 text-xl'>
+          <span className='block text-stone-700 font-bold'>
+            Available funds:{" "}
+          </span>
+          <h3 className='font-bold text-yellow-400 text-xl bg-stone-700 px-2'>
             {isFetchingEntries ? (
               <SmallSpinner />
             ) : (
@@ -32,11 +34,11 @@ function Amounts() {
       <div className=' flex w-full'>
         <div className=' mr-4'>
           <Amount
-            bgColor='bg-green-200'
+            // bgColor='bg-green-200'
             ring='ring-3 ring-green-400 ring-offset-2'
           >
-            <span className='block text-slate-700'>Income: </span>
-            <h3 className='font-bold text-slate-700 text-xl'>
+            <span className='block text-slate-700 font-bold'>Income: </span>
+            <h3 className='font-bold text-slate-700 text-xl bg-green-200 px-2'>
               {isFetchingEntries ? (
                 <SmallSpinner />
               ) : (
@@ -47,11 +49,11 @@ function Amounts() {
         </div>
         <div className=' ml-4'>
           <Amount
-            bgColor='bg-rose-200'
+            // bgColor='bg-rose-200'
             ring='ring-3 ring-red-400 ring-offset-2'
           >
-            <span className='block text-slate-700'>Expense: </span>
-            <h3 className='font-bold text-slate-700 text-xl'>
+            <span className='block text-slate-700 font-bold'>Expense: </span>
+            <h3 className='font-bold text-slate-700 text-xl bg-rose-200 px-2'>
               {isFetchingEntries ? (
                 <SmallSpinner />
               ) : (
@@ -62,14 +64,19 @@ function Amounts() {
         </div>
       </div>
       <span
-        className=' m-auto mt-1 bg-stone-700 text-yellow-400 text-l p-2 w-1/2 flex items-center justify-center'
+        className=' m-auto mt-1 text-stone-700 text-l uppercase font-bold p-2 w-2/3 flex items-center justify-center'
         title='Expense / Income ratio'
       >
         {isFetchingEntries && <SmallSpinner />}
-        {isFetchingEntries ||
-          `Your expenses are ${
-            expenseFunds === 0 ? 0 : percentage
-          } % of your income.`}
+        {isFetchingEntries || (
+          <span>
+            Your expenses are
+            <span className=' bg-stone-700 text-yellow-400 py-1 px-2 text-xl mx-2'>
+              {percentage}%
+            </span>
+            of your income
+          </span>
+        )}
       </span>
     </div>
   );
