@@ -21,8 +21,8 @@ function ListsParent() {
         <div className=' mb-2'>
           <SortOptions listType=' income' />
         </div>
-        <div className=' flex'>
-          <div className='w-full mx-2'>
+        <div className=' flex flex-col pr-2'>
+          <div className='w-full mx-2 mb-4'>
             <ListHeader
               icon={
                 <FontAwesomeIcon
@@ -39,7 +39,7 @@ function ListsParent() {
 
             <List type='inc-list' entriesType={incomeEntries} />
           </div>
-          <div className='w-full mx-2'>
+          <div className='w-full mx-2 mb-4'>
             <ListHeader
               icon={
                 <FontAwesomeIcon

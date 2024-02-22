@@ -5,7 +5,7 @@ import ListsParent from "../app-components/ListsParent";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useEffect } from "react";
 
-function BudgetTracker() {
+function AppLayout() {
   const { logOut } = useAuthContext();
 
   useEffect(() => {
@@ -28,4 +28,4 @@ function BudgetTracker() {
   );
 }
 
-export default BudgetTracker;
+export default AppLayout;

@@ -26,30 +26,30 @@ function Login() {
   return isLoading ? (
     <Loader />
   ) : (
-    <form onSubmit={handleSubmit(onUserLogin)} className='flex items-center'>
+    <form onSubmit={handleSubmit(onUserLogin)} className='flex  items-center'>
       <div>
-        <label
+        {/* <label
           htmlFor='email-address'
           className='mx-1 my-0 text-left italic'
-        ></label>
+        ></label> */}
         <input
           {...register("email", { required: true })}
           id='email-address'
           type='email'
           placeholder='Email'
-          className='w-28 rounded-full bg-yellow-100 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:w-64 sm:focus:w-72'
+          className='w-28 rounded-full block bg-yellow-100 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:w-64 sm:focus:w-72'
           required
         />
       </div>
 
       <div>
-        <label htmlFor='password' className='mx-1 my-0 italic'></label>
+        {/* <label htmlFor='password' className='mx-1 my-0 italic'></label> */}
         <input
           {...register("password", { required: true })}
           id='password'
           type='password'
           placeholder='Password'
-          className='w-16 rounded-full bg-yellow-100 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:w-48 sm:focus:w-56'
+          className='w-16 rounded-full block bg-yellow-100 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:w-48 sm:focus:w-56'
           required
         />
       </div>

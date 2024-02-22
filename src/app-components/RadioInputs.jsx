@@ -3,7 +3,7 @@ import { useBudgetTrackerContext } from "../contexts/BudgetTrackerContext";
 function RadioInputs() {
   const { dispatch } = useBudgetTrackerContext();
   return (
-    <div className='flex justify-between items-center my-4 mx-auto w-1/4 py-2 px-4'>
+    <div className='flex justify-between items-center my-4 mx-auto w-full py-2 px-4'>
       <label className=' uppercase'>Income</label>
       <input
         type='radio'

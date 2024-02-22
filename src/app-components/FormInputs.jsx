@@ -56,11 +56,11 @@ function FormInputs() {
   }, [type, entries]);
 
   return (
-    <form className='flex justify-between items-center w-2/3'>
+    <form className='flex flex-col justify-between items-center w-full'>
       <input
         type='text'
         placeholder='Add description'
-        className='py-2 px-4 mr-4'
+        className='py-2 px-4 mb-4 w-full'
         onChange={e => dispatch({ type: "desc", payload: e.target.value })}
         value={desc}
         ref={descriptionInput}
@@ -69,7 +69,7 @@ function FormInputs() {
       <input
         type='number'
         placeholder='Add amount'
-        className='py-2 px-4 mr-4'
+        className='py-2 px-4 mb-4 w-full'
         onChange={e =>
           dispatch({
             type: "value",

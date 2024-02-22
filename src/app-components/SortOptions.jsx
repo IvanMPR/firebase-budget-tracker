@@ -23,10 +23,15 @@ function SortOptions() {
     });
   }
   return (
-    <div className=' mb-2 flex'>
+    <div className=' mb-2 flex-col'>
       <div className=' mr-1'>
         <label htmlFor='sortOptions'>Sort entries: </label>
-        <select id='sortOptions' value={sort} onChange={handleSortChange}>
+        <select
+          className=' pl-1 py-1 mb-4'
+          id='sortOptions'
+          value={sort}
+          onChange={handleSortChange}
+        >
           <option value='date-asc'>Oldest First</option>
           <option value='date-desc'>Newest First</option>
           <option value='amount-h'>Amount Highest</option>
@@ -36,7 +41,12 @@ function SortOptions() {
 
       <div>
         <label htmlFor='month'>&nbsp;</label>
-        <select id='monthSorting' value={month} onChange={handleMonthChange}>
+        <select
+          className=' pl-14 py-1'
+          id='monthSorting'
+          value={month}
+          onChange={handleMonthChange}
+        >
           <option value=''>Choose by month - All</option>
           <option value='01'>January</option>
           <option value='02'>February</option>
