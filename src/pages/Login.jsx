@@ -26,32 +26,39 @@ function Login() {
   return isLoading ? (
     <Loader />
   ) : (
-    <form onSubmit={handleSubmit(onUserLogin)} className='flex  items-center'>
-      <div>
-        {/* <label
+    <form
+      onSubmit={handleSubmit(onUserLogin)}
+      className='flex flex-col md:flex-row items-center'
+    >
+      <div className=' flex w-full'>
+        <div>
+          {/* <label
           htmlFor='email-address'
           className='mx-1 my-0 text-left italic'
         ></label> */}
-        <input
-          {...register("email", { required: true })}
-          id='email-address'
-          type='email'
-          placeholder='Email'
-          className='w-28 rounded-full block bg-yellow-100 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:w-64 sm:focus:w-72'
-          required
-        />
-      </div>
+          <input
+            {...register("email", { required: true })}
+            id='email-address'
+            type='email'
+            placeholder='Email'
+            className='w-[90%] rounded-full block bg-yellow-100 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-500 focus:ring-opacity-50 '
+            required
+          />
+          {/* sm:w-64 sm:focus:w-72 */}
+        </div>
 
-      <div>
-        {/* <label htmlFor='password' className='mx-1 my-0 italic'></label> */}
-        <input
-          {...register("password", { required: true })}
-          id='password'
-          type='password'
-          placeholder='Password'
-          className='w-16 rounded-full block bg-yellow-100 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:w-48 sm:focus:w-56'
-          required
-        />
+        <div>
+          {/* <label htmlFor='password' className='mx-1 my-0 italic'></label> */}
+          <input
+            {...register("password", { required: true })}
+            id='password'
+            type='password'
+            placeholder='Password'
+            className='w-[60%] rounded-full block bg-yellow-100 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-500 focus:ring-opacity-50 '
+            required
+          />
+          {/* sm:w-48 sm:focus:w-56 */}
+        </div>
       </div>
       <div className='mx-2'>
         <button
