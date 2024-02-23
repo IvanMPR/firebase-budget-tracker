@@ -11,20 +11,18 @@ function SignupPage() {
           backgroundImage: ` url('bgd.png')`,
           height: "calc(100vh - 4.5rem)",
         }}
-        className='w-full bg-cover  bg-top'
+        className='w-full bg-cover bg-top'
       >
-        <ContentWrapper>
-          <div
-            style={{
-              height: "calc(100vh - 4.5rem)",
-            }}
-            className=' flex flex-col p-4 items-left justify-center'
-          >
-            <div>
-              <SignupForm />
-            </div>
+        <div
+          style={{
+            height: "calc(100vh - 4.5rem)",
+          }}
+          className=' flex flex-col p-4 items-left justify-center'
+        >
+          <div>
+            <SignupForm />
           </div>
-        </ContentWrapper>
+        </div>
       </section>
     </>
   );
