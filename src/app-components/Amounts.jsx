@@ -2,6 +2,7 @@ import Amount from "./Amount";
 import SmallSpinner from "../components/SmallSpinner";
 import { useBudgetTrackerContext } from "../contexts/BudgetTrackerContext";
 import { CURRENCY_SYMBOL, roundNumber } from "../utils";
+import ContentWrapper from "../components/ContentWrapper";
 
 function Amounts() {
   const {
@@ -13,7 +14,7 @@ function Amounts() {
   } = useBudgetTrackerContext();
 
   return (
-    <div>
+    <div className=' w-full px-4'>
       <div>
         <Amount ring='ring-3 ring-slate-400 ring-offset-2'>
           <span className='block text-stone-700 font-bold'>
