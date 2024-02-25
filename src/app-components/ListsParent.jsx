@@ -17,11 +17,11 @@ function ListsParent() {
     useBudgetTrackerContext();
   return (
     <ContentWrapper>
-      <div className='w-full flex flex-col m-auto'>
+      <div className='w-full flex flex-col m-auto '>
         <div className=' mb-2'>
           <SortOptions listType=' income' />
         </div>
-        <div className=' flex flex-col pr-2'>
+        <div className=' flex flex-col pr-2 xl:flex-row '>
           <div className='w-full mx-2 mb-4'>
             <ListHeader
               icon={
