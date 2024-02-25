@@ -23,7 +23,7 @@ function SortOptions() {
     });
   }
   return (
-    <div className=' mb-2 flex-col'>
+    <div className='flex mb-2 flex-col xl:flex-row'>
       <div className=' mr-1'>
         <label htmlFor='sortOptions'>Sort entries: </label>
         <select
