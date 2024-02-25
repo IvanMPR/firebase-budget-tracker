@@ -46,7 +46,7 @@ function SignupForm() {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center bg-yellow-400 w-full m-auto mb-20  p-2 border-solid border-2 border-stone-700 rounded-2xl opacity-90 md:w-1/4'>
+    <div className='flex flex-col items-center justify-center bg-yellow-400 w-full m-auto mb-20  p-2 border-solid border-2 border-stone-700 rounded-2xl opacity-90 md:w-1/4 xl:w-[150%]'>
       <h2 className=' uppercase text-stone-700 text-lg tracking-widest p-4 font-bold text-center'>
         Create Account
       </h2>
