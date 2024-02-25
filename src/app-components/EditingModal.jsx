@@ -65,7 +65,7 @@ function EditingModal() {
 
   return (
     <div className='fixed inset-0 bg-stone-700 bg-opacity-40 backdrop-blur-sm flex items-center justify-center'>
-      <div className=' p-4 relative z-[100] w-[27%] h-[23%] border border-stone-700 bg-yellow-400 rounded-xl'>
+      <div className=' p-4 relative z-[100] w-[90%] h-[25%] md:w-[27%] md:h-[23%] border border-stone-700 bg-yellow-400 rounded-xl'>
         <span
           className=' absolute right-4 cursor-pointer transition-all duration-500 ease-in-out hover:text-red-500 font-bold text-xl'
           title='Close editing modal '
@@ -84,7 +84,7 @@ function EditingModal() {
               setNewDesc(e.target.value);
             }}
             ref={modalInput}
-            className='mr-2 p-2 border border-slate-700  w-2/3 rounded-md'
+            className='mr-2 p-2 border border-slate-700 w-[60%] md:w-2/3 rounded-md'
             maxLength={30}
           />
           <input
@@ -93,7 +93,7 @@ function EditingModal() {
             onChange={e => {
               setNewAmount(roundNumber(Number(e.target.value)));
             }}
-            className=' p-2 border border-slate-700 rounded-md'
+            className=' w-[40%] p-2 border border-slate-700 rounded-md'
             max={1000000000}
           />
         </form>
