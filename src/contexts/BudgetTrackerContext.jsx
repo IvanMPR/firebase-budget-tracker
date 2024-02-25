@@ -16,7 +16,7 @@ const BudgetTrackerContext = createContext();
 function BudgetTrackerProvider({ children }) {
   const { user } = useAuthContext();
   const [isFetchingEntries, setIsFetchingEntries] = useState(false);
-
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [
     {
       entries,
@@ -70,6 +70,19 @@ function BudgetTrackerProvider({ children }) {
       })
       .catch(err => console.log(err.message));
   }, [user]);
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 640px)");
+    mediaQuery.addListener(handleMediaQueryChange);
+    handleMediaQueryChange(mediaQuery);
+
+    return () => {
+      mediaQuery.removeListener(handleMediaQueryChange);
+    };
+  }, []);
+
+  const handleMediaQueryChange = mediaQuery => {
+    setIsSmallScreen(mediaQuery.matches);
+  };
 
   return (
     <BudgetTrackerContext.Provider
@@ -90,6 +103,7 @@ function BudgetTrackerProvider({ children }) {
         availableFunds,
         percentage,
         isFetchingEntries,
+        isSmallScreen,
       }}
     >
       {children}
