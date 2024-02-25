@@ -16,23 +16,23 @@ function App() {
   return (
     <BrowserRouter basename='/firebase-budget-tracker/'>
       <AuthProvider>
-        <Suspense fallback={<Loader />}>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='signup' element={<SignupPage />} />
-            <Route
-              path='budget-tracker'
-              element={
-                <ProtectedRoute>
-                  <BudgetTrackerProvider>
+        <BudgetTrackerProvider>
+          <Suspense fallback={<Loader />}>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='signup' element={<SignupPage />} />
+              <Route
+                path='budget-tracker'
+                element={
+                  <ProtectedRoute>
                     <AppLayout />
-                  </BudgetTrackerProvider>
-                </ProtectedRoute>
-              }
-            />
-            <Route path='*' element={<PageNotFound />} />
-          </Routes>
-        </Suspense>
+                  </ProtectedRoute>
+                }
+              />
+              <Route path='*' element={<PageNotFound />} />
+            </Routes>
+          </Suspense>
+        </BudgetTrackerProvider>
       </AuthProvider>
       <Toaster
         position='bottom-center'
