@@ -13,16 +13,18 @@ function SignupPage() {
         }}
         className='w-full bg-cover bg-top'
       >
-        <div
-          style={{
-            height: "calc(100vh - 4.5rem)",
-          }}
-          className=' flex flex-col p-4 items-left justify-center'
-        >
-          <div>
-            <SignupForm />
+        <ContentWrapper>
+          <div
+            style={{
+              height: "calc(100vh - 4.5rem)",
+            }}
+            className=' flex flex-col p-4  items-left justify-center'
+          >
+            <div>
+              <SignupForm />
+            </div>
           </div>
-        </div>
+        </ContentWrapper>
       </section>
     </>
   );
