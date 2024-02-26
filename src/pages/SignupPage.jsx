@@ -18,7 +18,7 @@ function SignupPage() {
             style={{
               height: "calc(100vh - 4.5rem)",
             }}
-            className=' flex flex-col p-4  items-left justify-center'
+            className=' flex flex-col p-4 items-left justify-center'
           >
             <div>
               <SignupForm />

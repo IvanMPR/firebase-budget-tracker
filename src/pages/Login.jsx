@@ -60,8 +60,9 @@ function Login() {
       <div className=' w-1/5'>
         <button
           type='submit'
-          className='inline-block  rounded-full bg-stone-700  font-semibold uppercase tracking-normal md:tracking-wide text-yellow-400 transition-colors hover:bg-stone-800 active:translate-y-[2px] disabled:cursor-not-allowed disabled:opacity-50 py-2.5 px-3 md:px-5 md:py-2.5  text-xs xl:px-6'
+          className='inline-block  rounded-full bg-stone-700  font-semibold uppercase tracking-normal md:tracking-wide text-yellow-400 transition-colors hover:bg-stone-800 active:translate-y-[2px] disabled:cursor-not-allowed disabled:opacity-50 py-2.5 px-3  text-xs xl:px-6'
         >
+          {/* md:px-5 md:py-2.5  */}
           {/* sm:px-6 sm:py-4 */}
           {/* md:px-5 md:py-2.5 */}
           {isSmallScreen && (
