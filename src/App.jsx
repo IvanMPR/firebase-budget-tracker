@@ -29,10 +29,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route
-                path='/firebase-budget-tracker/*'
-                element={<PageNotFound />}
-              />
+              <Route path='*' element={<PageNotFound />} />
             </Routes>
           </Suspense>
         </BudgetTrackerProvider>
