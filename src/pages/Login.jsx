@@ -65,10 +65,7 @@ function Login() {
           {/* md:px-5 md:py-2.5  */}
           {/* sm:px-6 sm:py-4 */}
           {/* md:px-5 md:py-2.5 */}
-          {isSmallScreen && (
-            <FontAwesomeIcon icon={faArrowRightToBracket} />
-          )}{" "}
-          Login
+          <FontAwesomeIcon icon={faArrowRightToBracket} /> Login
         </button>
       </div>
     </form>

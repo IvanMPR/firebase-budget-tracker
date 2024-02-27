@@ -25,7 +25,7 @@ function Amounts() {
               {isFetchingEntries ? (
                 <SmallSpinner />
               ) : (
-                `${CURRENCY_SYMBOL} ${roundNumber(availableFunds)}`
+                `${CURRENCY_SYMBOL}${roundNumber(availableFunds)}`
               )}
             </h3>
           </Amount>
