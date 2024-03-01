@@ -22,7 +22,6 @@ function Home() {
             }}
             className=' flex flex-col  items-left justify-center'
           >
-            {/* p-4 */}
             <p className=' text-stone-700 text-3xl  w-2/3 leading-[3rem] mb-8 md:text-5xl md:leading-[4rem]'>
               Keep track of your finances with this awesome app!
             </p>

@@ -59,7 +59,6 @@ function SignupForm() {
             placeholder='Enter your email address'
             className=' w-[80%] m-auto rounded-full bg-yellow-100 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-500 focus:ring-opacity-50 '
             {...register("email", { required: true })}
-            // md:w-64 md:focus:w-72
           />
         </div>
 
@@ -70,7 +69,6 @@ function SignupForm() {
             required
             placeholder='Type in your password'
             className=' w-[80%] m-auto rounded-full bg-yellow-100 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-500 focus:ring-opacity-50 '
-            // md:w-64 md:focus:w-72
             {...register("password", { required: true })}
           />
         </div>
