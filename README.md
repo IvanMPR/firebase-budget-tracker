@@ -13,7 +13,7 @@ my main focus was on the usability and functionality of the expense tracker app,
 and same file. Logic for interaction with Firebase is located in several places, mostly in the event handleres that logically coresponds to components (editing entries in EditingModal, deletion and info in ListItem etc...)
 <br/>
 
-
+App is responsive, but like I mentioned above, main focus was on functionality, so I did't spend to much time polishing displaying characteristics for every screen possible.
 
 
 
