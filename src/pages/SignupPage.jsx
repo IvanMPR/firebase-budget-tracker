@@ -8,7 +8,7 @@ function SignupPage() {
       <Header />
       <section
         style={{
-          backgroundImage: ` url('bgd.png')`,
+          backgroundImage: ` url('bgd.jpg')`,
           height: "calc(100vh - 4.5rem)",
         }}
         className='w-full bg-cover bg-top'
